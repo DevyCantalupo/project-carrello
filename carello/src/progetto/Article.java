@@ -5,6 +5,7 @@ public interface Article {
         TABLET, SMARTPHONE, NOTEBOOK
     }
 
+    public TypeOfArticle type = null;
     public String manufacturer = null;
     public String model = null;
     public String description = null;
@@ -14,4 +15,16 @@ public interface Article {
     public Double priceOfSelling = null;
     public Integer id = null;
 
+
+    public TypeOfArticle getType();
+
+    public String getManufacturer();
+
+    public String getModel();
+
+    public double getPriceOfBuying();
+
+    public double getPriceOfSelling();
+
+    public int getId();
 }
