@@ -16,7 +16,7 @@ public class Cart {
         return userCart;
     }
 
-    public static void userCartOperations(){
+    public static void userCartOperations() {
 
         System.out.println("Press 0 to return to the previous menu");
         System.out.println("Press 1 to add a product to the cart");
@@ -25,10 +25,10 @@ public class Cart {
 
         boolean continueMenuOperations = true;
         Scanner input = new Scanner(System.in);
-        do{
+        do {
             System.out.print("Insert your cart menu option: ");
             int menuChoice = input.nextInt();
-            switch (menuChoice){
+            switch (menuChoice) {
                 case 0:
                     continueMenuOperations = false;
                     break;
@@ -36,14 +36,14 @@ public class Cart {
                     System.out.print("Enter INDEX of the product:");
 
                     int userIdex = input.nextInt();
-                    System.out.println("Added " +userIdex);
+                    System.out.println("Added " + userIdex);
                     userCart.add(Warehouse.warehouse.get(userIdex));
                     Warehouse.warehouse.remove(userIdex);
                     break;
                 case 2:
                     System.out.println("You cart has:");
-                    for(int i = 0; i < userCart.size(); i++){
-                        System.out.println("Index [" +i +"]; " +userCart.get(i));
+                    for (int i = 0; i < userCart.size(); i++) {
+                        System.out.println("Index [" + i + "]; " + userCart.get(i));
                     }
                     break;
                 case 3:
@@ -53,8 +53,7 @@ public class Cart {
                     userCart.remove(userIdex);
                     break;
             }
-        }while(continueMenuOperations);
+        } while (continueMenuOperations);
 
     }
 }
-
