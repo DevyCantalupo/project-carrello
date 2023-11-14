@@ -6,17 +6,17 @@ public class Smartphone implements Article {
     private String manufacturer;
     private String model;
     private String description;
-    private int display;
+    private double screenSizeInInches;
     private int memory;
     private double priceOfBuying;
     private double priceOfSelling;
     private int id;
 
-    public Smartphone(String manufacturer, String model, String description, int display, int memory, double priceOfBuying, double priceOfSelling, int id) {
+    public Smartphone(String manufacturer, String model, String description, double screenSizeInInches, int memory, double priceOfBuying, double priceOfSelling, int id) {
         this.manufacturer = manufacturer;
         this.model = model;
         this.description = description;
-        this.display = display;
+        this.screenSizeInInches = screenSizeInInches;
         this.memory = memory;
         this.priceOfBuying = priceOfBuying;
         this.priceOfSelling = priceOfSelling;
@@ -30,7 +30,7 @@ public class Smartphone implements Article {
                 ", manufacturer='" + manufacturer + '\'' +
                 ", model='" + model + '\'' +
                 ", description='" + description + '\'' +
-                ", display=" + display +
+                ", screenSizeInInches=" + screenSizeInInches +
                 ", memory=" + memory +
                 ", priceOfBuying=" + priceOfBuying +
                 ", priceOfSelling=" + priceOfSelling +

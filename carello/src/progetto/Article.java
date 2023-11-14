@@ -9,7 +9,7 @@ public interface Article {
     public String manufacturer = null;
     public String model = null;
     public String description = null;
-    public Double display = null;
+    public Double screenSizeInInches = null;
     public Integer memory = null;
     public Double priceOfBuying = null;
     public Double priceOfSelling = null;
