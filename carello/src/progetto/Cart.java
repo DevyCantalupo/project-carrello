@@ -25,7 +25,7 @@ public class Cart {
 
     public static void printCart() {
         for (int i = 0; i < userCart.size(); i++) {
-            System.out.println("Index [" + i + "]; " + userCart.get(i));
+            System.out.println("\n Index [" + i + "];" + userCart.get(i) + "\n");
         }
     }
 
