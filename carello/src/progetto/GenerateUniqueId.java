@@ -8,12 +8,12 @@ public class GenerateUniqueId {
         Random rand = new Random();
         Integer uniqueId = rand.nextInt(100);
         boolean isUnique = false;
-        if(Warehouse.warehouse.isEmpty()){
+        if(OperationInWarehouse.warehouse.isEmpty()){
             return uniqueId;
         }
         do{
-            for(int i = 0; i < Warehouse.warehouse.size(); i++){
-                if(uniqueId.equals(Warehouse.warehouse.get(i).getId())){
+            for(int i = 0; i < OperationInWarehouse.warehouse.size(); i++){
+                if(uniqueId.equals(OperationInWarehouse.warehouse.get(i).getId())){
                     uniqueId = rand.nextInt(100);
                 }
                 else{
