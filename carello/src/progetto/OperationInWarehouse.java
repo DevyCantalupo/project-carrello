@@ -19,8 +19,8 @@ public class OperationInWarehouse {
             }
         }
     }
-     
-    //todo
+
+    // todo
     public static void addToWarehouse() {
         String inputType = input.nextLine().toUpperCase();
         Article.TypeOfArticle type = null;
@@ -68,7 +68,7 @@ public class OperationInWarehouse {
 
     }
 
-    public static void searchType() { 
+    public static void searchType() {
         String userType = input.nextLine().toUpperCase();
         boolean found = false;
         for (int i = 0; i < warehouse.size(); i++) {
