@@ -10,9 +10,9 @@ public class Notebook implements Article {
     private int memory;
     private double priceOfBuying;
     private double priceOfSelling;
-    private int id;
+    private String id;
 
-    public Notebook(String manufacturer, String model, String description, double screenSizeInInches, int memory, double priceOfBuying, double priceOfSelling, int id) {
+    public Notebook(String manufacturer, String model, String description, double screenSizeInInches, int memory, double priceOfBuying, double priceOfSelling, String id) {
         this.manufacturer = manufacturer;
         this.model = model;
         this.description = description;
@@ -58,7 +58,7 @@ public class Notebook implements Article {
         return priceOfSelling;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 }

@@ -13,7 +13,7 @@ public interface Article {
     public Integer memory = null;
     public Double priceOfBuying = null;
     public Double priceOfSelling = null;
-    public Integer id = null;
+    public String id = null;
 
 
     public TypeOfArticle getType();
@@ -26,5 +26,5 @@ public interface Article {
 
     public double getPriceOfSelling();
 
-    public int getId();
+    public String getId();
 }
