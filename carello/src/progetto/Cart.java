@@ -35,4 +35,14 @@ public class Cart {
         userCart.remove(userIdex);
     }
 
+    public static double calculateTotalCart() {
+        double total = 0.0;
+
+        for (Article article : userCart) {
+            total += article.getPriceOfSelling(); 
+        }
+
+        return total;
+    }
+
 }
