@@ -27,8 +27,9 @@ public class Cart {
         if (userCart.isEmpty()) {
             System.out.println("\n user cart is empty \n");
         } else {
+            System.out.println("\nYour cart has :\n");
             for (int i = 0; i < userCart.size(); i++) {
-                System.out.println("\nYour cart has :\n Index [" + i + "];" + userCart.get(i) + "\n");
+                System.out.println( "Index [" + i + "];" + userCart.get(i) + "\n");
             }
         }
 
@@ -73,18 +74,23 @@ public class Cart {
         OperationInWarehouse.warehouse.add(toRemove);
     }
 
+
     public static void finalizePurchase() {
-        System.out.println("you actual price is : " + calculateTotalCart());
-        System.out.println("Would you like to complete your purchase?");
+
         String choice = input.next();
-        switch (choice) {
-            case "YES":
-                userCart.clear();
-                System.out.println("\n Thanks for the purchase \n");
-                break;
-            default:
-                System.out.println("returning to menu");
-                break;
-        }
+            switch (choice.toUpperCase()) {
+                case "YES":
+                    userCart.clear();
+                    System.out.println("\n Thanks for the purchase \n");
+                    break;
+                case "NO":
+                    OperationInWarehouse.warehouse.addAll(userCart);
+                    userCart.clear();
+                    System.out.println("\n I hope you'll spend some money next time \n");
+                    break;
+                default:
+                    System.out.println("returning to menu");
+                    break;
+            }
     }
 }
