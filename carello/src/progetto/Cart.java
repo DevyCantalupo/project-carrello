@@ -29,7 +29,7 @@ public class Cart {
         } else {
             System.out.println("\nYour cart has :\n");
             for (int i = 0; i < userCart.size(); i++) {
-                System.out.println( "Index [" + i + "];" + userCart.get(i) + "\n");
+                System.out.println("Index [" + i + "];" + userCart.get(i) + "\n");
             }
         }
 
@@ -78,19 +78,19 @@ public class Cart {
     public static void finalizePurchase() {
 
         String choice = input.next();
-            switch (choice.toUpperCase()) {
-                case "YES":
-                    userCart.clear();
-                    System.out.println("\n Thanks for the purchase \n");
-                    break;
-                case "NO":
-                    OperationInWarehouse.warehouse.addAll(userCart);
-                    userCart.clear();
-                    System.out.println("\n I hope you'll spend some money next time \n");
-                    break;
-                default:
-                    System.out.println("returning to menu");
-                    break;
-            }
+        switch (choice.toUpperCase()) {
+            case "YES":
+                userCart.clear();
+                System.out.println("\n Thanks for the purchase \n");
+                break;
+            case "NO":
+                OperationInWarehouse.warehouse.addAll(userCart);
+                userCart.clear();
+                System.out.println("\n I hope you'll spend some money next time \n");
+                break;
+            default:
+                System.out.println("returning to menu");
+                break;
+        }
     }
 }
