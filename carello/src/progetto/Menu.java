@@ -84,6 +84,7 @@ public class Menu {
         System.out.println("Press 4 to remove an item from your shopping cart");
         System.out.println("Press 5 to remove an item from your shopping cart by id");
         System.out.println("Press 6 to see total price cart");
+        System.out.println("Press 7 to checkout");
 
         boolean continueMenuOperations = true;
 
@@ -116,6 +117,11 @@ public class Menu {
                 case 6:
                     System.out.println("\nTotal Price is : " + Cart.calculateTotalCart());
                     break;
+                case 7:
+                    System.out.println("you actual price is : " + Cart.calculateTotalCart());
+                    System.out.println("Would you like to complete your purchase?");
+                    System.out.println("Digit 'YES' if you want to puchase the articles, 'NO' if you don't want to buy the articles anymore, digit a random char to go back to the menu");
+                    Cart.finalizePurchase();
             }
         } while (continueMenuOperations);
     }
