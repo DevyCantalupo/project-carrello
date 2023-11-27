@@ -1,5 +1,7 @@
 package progetto;
 
+
+
 public class Warehouse {
     public static void productsAlreadyInWarehouse() {
         Article product1 = new Tablet("Susa", "VK64", "Yep, it's a tablet", 10.5, 64, 80, 59.99,

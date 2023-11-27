@@ -17,13 +17,17 @@ public class Cart {
     }
 
     public static void addToCart() {
+        while (!input.hasNextInt()) {
+            System.out.println("\n insert a valid option");
+            input.next();
+        }
         int userIdex = input.nextInt();
-        if (checkIndex(userIdex, OperationInWarehouse.getWarehouse())) {
+        if (OperationInWarehouse.checkIndex(userIdex, OperationInWarehouse.getWarehouse())) {
             userCart.add(OperationInWarehouse.getWarehouse().get(userIdex));
             OperationInWarehouse.getWarehouse().remove(userIdex);
             System.out.println("Added " + userIdex);
         } else {
-            System.out.println("Incorect index");
+            System.out.println("\n Incorect index");
         }
     }
 
@@ -31,7 +35,7 @@ public class Cart {
         if (userCart.isEmpty()) {
             System.out.println("\n user cart is empty \n");
         } else {
-            System.out.println("\nYour cart has :\n");
+            System.out.println("\n Currently in your shopping cart you have :\n");
             for (int i = 0; i < userCart.size(); i++) {
                 System.out.println("Index [" + i + "];" + userCart.get(i) + "\n");
             }
@@ -40,8 +44,12 @@ public class Cart {
     }
 
     public static void removeFromCart() {
+        while (!input.hasNextInt()) {
+            System.out.println("\n insert a valid option");
+            input.next();
+        }
         int userIdex = input.nextInt();
-        if (checkIndex(userIdex, userCart)) {
+        if (OperationInWarehouse.checkIndex(userIdex, userCart)) {
             OperationInWarehouse.getWarehouse().add(userCart.get(userIdex));
             userCart.remove(userIdex);
         } else {
@@ -65,7 +73,6 @@ public class Cart {
                 toAdd = a;
             }
         }
-
         if (toAdd != null) {
             userCart.add(toAdd);
             OperationInWarehouse.getWarehouse().remove(toAdd);
@@ -90,27 +97,31 @@ public class Cart {
         }
     }
 
-
     public static void finalizePurchase() {
-
-        String choice = input.next();
-        switch (choice.toUpperCase()) {
-            case "YES":
-                userCart.clear();
-                System.out.println("\n Thanks for the purchase \n");
-                break;
-            case "NO":
-                OperationInWarehouse.getWarehouse().addAll(userCart);
-                userCart.clear();
-                System.out.println("\n I hope you'll spend some money next time \n");
-                break;
-            default:
-                System.out.println("returning to menu");
-                break;
+        if (userCart.isEmpty()) {
+            System.out.println("\n user cart is empty \n");
+        } else {
+            printCart();
+            System.out.println("your actual price is : " + calculateTotalCart());
+            System.out.println("\n Would you like to complete your purchase?");
+            System.out.println(
+                    "Digit 'YES' if you want to puchase the articles, 'NO' if you don't want to buy the articles anymore, digit a random char to go back to the menu");
+            String choice = input.next();
+            switch (choice.toUpperCase()) {
+                case "YES":
+                    userCart.clear();
+                    System.out.println("\n Thanks for the purchase returning to main menu  \n");
+                    break;
+                case "NO":
+                    OperationInWarehouse.getWarehouse().addAll(userCart);
+                    userCart.clear();
+                    System.out.println("\n I hope you'll spend some money next time \n");
+                    break;
+                default:
+                    System.out.println("returning to menu");
+                    break;
+            }
         }
     }
 
-    public static boolean checkIndex(int a, List<Article> list) {
-        return a >= 0 && a < list.size();
-    }
 }

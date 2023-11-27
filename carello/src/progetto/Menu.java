@@ -24,49 +24,49 @@ public class Menu {
         boolean continueMenu = true;
         do {
             System.out.print("\n Insert your menu option: ");
-            int menuChoice = menuScan.nextInt();
+            String menuChoice = menuScan.next();
             switch (menuChoice) {
-                case 0:
+                case "0":
                     continueMenu = false;
                     break;
-                case 1:
+                case "1":
                     System.out.println("\n Enter the TYPE of the product you want to add \n");
                     OperationInWarehouse.addToWarehouse();
                     break;
-                case 2:
+                case "2":
                     OperationInWarehouse.printWarehouseContents();
                     break;
-                case 3:
+                case "3":
                     userCartMenu();
                     break;
-                case 4:
+                case "4":
                     System.out.print("\n Please enter the TYPE of the product you wish to search for: \n");
                     OperationInWarehouse.searchType();
                     break;
-                case 5:
+                case "5":
                     System.out.println("\n Insert the manufacturer of the product \n");
                     OperationInWarehouse.findByManifacturer();
                     break;
-                case 6:
+                case "6":
                     System.out.println("\n Insert the model of the product \n");
                     OperationInWarehouse.findByModel();
                     break;
-                case 7:
+                case "7":
                     System.out.println("\n Insert the selling price to search \n");
                     OperationInWarehouse.findSellingPrice();
                     break;
-                case 8:
+                case "8":
                     System.out.println("\n Insert purchase price to find \n");
                     OperationInWarehouse.findBuyingPrice();
                     break;
-                case 9:
+                case "9":
                     System.out.println("\n Find product between this selling range price. \n");
                     OperationInWarehouse.findRangePrice();
                     break;
-                case 10:
+                case "10":
                     System.out.println(OperationInWarehouse.findAvgPrice());
                     break;
-                case 11:
+                case "11":
                     Cart.finalizePurchase();
                     break;
                 default:
@@ -84,44 +84,40 @@ public class Menu {
         System.out.println("Press 4 to remove an item from your shopping cart");
         System.out.println("Press 5 to remove an item from your shopping cart by id");
         System.out.println("Press 6 to see total price cart");
-        System.out.println("Press 7 to checkout");
 
         boolean continueMenuOperations = true;
-
         do {
             System.out.print("\n Insert your cart menu option: \n");
-            int menuChoice = menuScan.nextInt();
+            String  menuChoice = menuScan.next();
             switch (menuChoice) {
-                case 0:
+                case "0":
                     continueMenuOperations = false;
                     break;
-                case 1:
+                case "1":
                     System.out.print("Enter INDEX of the product:");
                     Cart.addToCart();
                     break;
-                case 2:
+                case "2":
                     System.out.print("Enter ID of the product:");
                     Cart.addToCartById();
                     break;
-                case 3:
+                case"3":
                     Cart.printCart();
                     break;
-                case 4:
+                case "4":
                     System.out.print("Enter the INDEX of the thing you wish to remove:");
                     Cart.removeFromCart();
                     break;
-                case 5:
+                case "5":
                     System.out.print("Enter the ID of the thing you wish to remove:");
                     Cart.removeFromCartById();
                     break;
-                case 6:
+                case "6":
                     System.out.println("\nTotal Price is : " + Cart.calculateTotalCart());
                     break;
-                case 7:
-                    System.out.println("you actual price is : " + Cart.calculateTotalCart());
-                    System.out.println("Would you like to complete your purchase?");
-                    System.out.println("Digit 'YES' if you want to puchase the articles, 'NO' if you don't want to buy the articles anymore, digit a random char to go back to the menu");
-                    Cart.finalizePurchase();
+                default:
+                    System.out.println("\n Something went wrong \n");
+                    break;
             }
         } while (continueMenuOperations);
     }
