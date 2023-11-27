@@ -24,69 +24,83 @@ public class OperationInWarehouse {
         }
     }
 
-    // todo
     public static void addToWarehouse() {
-        String inputType = input.nextLine().toUpperCase();
         Article.TypeOfArticle type = null;
-        if (Objects.equals(inputType, "TABLET")) {
-            type = Article.TypeOfArticle.TABLET;
-        }
-        if (Objects.equals(inputType, "SMARTPHONE")) {
-            type = Article.TypeOfArticle.SMARTPHONE;
-        }
-        if (Objects.equals(inputType, "NOTEBOOK")) {
-            type = Article.TypeOfArticle.NOTEBOOK;
-        }
+        boolean correctType = false;
+        do {
+            String inputType = input.nextLine().toUpperCase();
+            if (Objects.equals(inputType, "TABLET")) {
+                type = Article.TypeOfArticle.TABLET;
+                correctType = true;
+            } else if (Objects.equals(inputType, "SMARTPHONE")) {
+                type = Article.TypeOfArticle.SMARTPHONE;
+                correctType = true;
+            } else if (Objects.equals(inputType, "NOTEBOOK")) {
+                type = Article.TypeOfArticle.NOTEBOOK;
+                correctType = true;
+            } else {
+                System.out.println("invalid input. Enter a correct product Type");
+            }
+        } while (correctType == false);
+
         System.out.println("Enter the MANUFACTURER of the product");
         String manufacturer = input.nextLine();
         System.out.println("Enter the MODEL NAME of the product");
         String modelName = input.nextLine();
         System.out.println("Enter a brief description for the product");
         String briefDescription = input.nextLine();
-        System.out.println("Enter the SCREEN SIZE of the product");
-        double screenSizeInInches = input.nextDouble();
-        System.out.println("Enter the INTERNAL MEMORY SIZE of the product");
-        int internalMemorySize = input.nextInt();
-        System.out.println("Enter the PURCHASE PRICE of the product");
-        double purchasePrice = input.nextDouble();
-        System.out.println("Enter the SELL PRICE of the product");
-        double sellPrice = input.nextDouble();
-        String id = GenerateUniqueId.generateUniqueID();
-        System.out.println("Assigned unique ID for the product is: " + id);
 
-        if (type == Article.TypeOfArticle.TABLET) {
-            Tablet tempProduct = new Tablet(manufacturer, modelName, briefDescription, screenSizeInInches,
-                    internalMemorySize, purchasePrice, sellPrice, id);
-            warehouse.add(tempProduct);
-        }
-        if (type == Article.TypeOfArticle.SMARTPHONE) {
-            Smartphone tempProduct = new Smartphone(manufacturer, modelName, briefDescription, screenSizeInInches,
-                    internalMemorySize, purchasePrice, sellPrice, id);
-            warehouse.add(tempProduct);
-        }
-        if (type == Article.TypeOfArticle.NOTEBOOK) {
-            Notebook tempProduct = new Notebook(manufacturer, modelName, briefDescription, screenSizeInInches,
-                    internalMemorySize, purchasePrice, sellPrice, id);
-            warehouse.add(tempProduct);
-        }
+        try {
+            System.out.println("Enter the SCREEN SIZE of the product");
+            double screenSizeInInches = input.nextDouble();
+            System.out.println("Enter the INTERNAL MEMORY SIZE of the product");
+            int internalMemorySize = input.nextInt();
+            System.out.println("Enter the PURCHASE PRICE of the product");
+            double purchasePrice = input.nextDouble();
+            System.out.println("Enter the SELL PRICE of the product");
+            double sellPrice = input.nextDouble();
 
+            String id = GenerateUniqueId.generateUniqueID();
+            System.out.println("Assigned unique ID for the product is: " + id);
+
+            if (type == Article.TypeOfArticle.TABLET) {
+                Tablet tempProduct = new Tablet(manufacturer, modelName, briefDescription, screenSizeInInches,
+                        internalMemorySize, purchasePrice, sellPrice, id);
+                warehouse.add(tempProduct);
+            }
+            if (type == Article.TypeOfArticle.SMARTPHONE) {
+                Smartphone tempProduct = new Smartphone(manufacturer, modelName, briefDescription, screenSizeInInches,
+                        internalMemorySize, purchasePrice, sellPrice, id);
+                warehouse.add(tempProduct);
+            }
+            if (type == Article.TypeOfArticle.NOTEBOOK) {
+                Notebook tempProduct = new Notebook(manufacturer, modelName, briefDescription, screenSizeInInches,
+                        internalMemorySize, purchasePrice, sellPrice, id);
+                warehouse.add(tempProduct);
+            }
+        } catch (InputMismatchException e) {
+            System.out.println("\n invalid input , returning to the main menu ");
+            input.nextLine();
+        }
     }
 
     public static void searchType() {
-        String userType = input.nextLine().toUpperCase();
         boolean found = false;
-        for (int i = 0; i < warehouse.size(); i++) {
-            Article.TypeOfArticle articleType = warehouse.get(i).getType();
-            if ((Objects.equals(userType, "TABLET") && articleType == Article.TypeOfArticle.TABLET) ||
-                    (Objects.equals(userType, "NOTEBOOK") && articleType == Article.TypeOfArticle.NOTEBOOK) ||
-                    (Objects.equals(userType, "SMARTPHONE") && articleType == Article.TypeOfArticle.SMARTPHONE)) {
-                System.out.println("index[" + i + "];" + warehouse.get(i) + "\n");
-                found = true;
+        do {
+            String userType = input.nextLine().toUpperCase();
+            for (int i = 0; i < warehouse.size(); i++) {
+                Article.TypeOfArticle articleType = warehouse.get(i).getType();
+                if ((Objects.equals(userType, "TABLET") && articleType == Article.TypeOfArticle.TABLET) ||
+                        (Objects.equals(userType, "NOTEBOOK") && articleType == Article.TypeOfArticle.NOTEBOOK) ||
+                        (Objects.equals(userType, "SMARTPHONE") && articleType == Article.TypeOfArticle.SMARTPHONE)) {
+                    System.out.println("index[" + i + "];" + warehouse.get(i) + "\n");
+                    found = true;
+                }
             }
-        }
-        if (!(found)) {
-            System.out.println("The product of that type in not found ");
-        }
+            if (!(found)) {
+                System.out.println("The product of that type in not found , please try again ");
+            }
+        } while (found == false);
     }
 
     void addWarehouse(Article a) {
@@ -94,6 +108,10 @@ public class OperationInWarehouse {
     }
 
     public static List<Article> findBuyingPrice() {
+        while (!input.hasNextInt()) {
+            System.out.println("invalid input , try again");
+            input.next();
+        }
         int price = input.nextInt();
         List<Article> listPrice = new ArrayList<Article>();
 
@@ -113,8 +131,16 @@ public class OperationInWarehouse {
     public static List<Article> findRangePrice() {
         System.out.println("\n Insert minimum price \n ");
         List<Article> listRange = new ArrayList<Article>();
+        while (!input.hasNextInt()) {
+            System.out.println("invalid input , try again");
+            input.next();
+        }
         int priceMin = input.nextInt();
         System.out.println("\n Insert maximum price \n");
+        while (!input.hasNextInt()) {
+            System.out.println("invalid input , try again");
+            input.next();
+        }
         int priceMax = input.nextInt();
         for (Article a : warehouse) {
             if (a.getPriceOfSelling() >= priceMin && a.getPriceOfSelling() <= priceMax) {
@@ -185,6 +211,10 @@ public class OperationInWarehouse {
 
     public static List<Article> findSellingPrice() {
         List<Article> listPriceOfSelling = new ArrayList<Article>();
+        while (!input.hasNextInt()) {
+            System.out.println("invalid input , try again");
+            input.next();
+        }
         int getPriceOfSellingToSearch = input.nextInt();
         for (Article a : warehouse) {
             if (a.getPriceOfSelling() == getPriceOfSellingToSearch) {
@@ -199,4 +229,7 @@ public class OperationInWarehouse {
         return listPriceOfSelling;
     }
 
+    public static boolean checkIndex(int a, List<Article> list) {
+        return a >= 0 && a < list.size();
+    }
 }
