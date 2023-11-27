@@ -18,9 +18,13 @@ public class Cart {
 
     public static void addToCart() {
         int userIdex = input.nextInt();
-        System.out.println("Added " + userIdex);
-        userCart.add(OperationInWarehouse.warehouse.get(userIdex));
-        OperationInWarehouse.warehouse.remove(userIdex);
+        if (checkIndex(userIdex, OperationInWarehouse.getWarehouse())) {
+            userCart.add(OperationInWarehouse.getWarehouse().get(userIdex));
+            OperationInWarehouse.getWarehouse().remove(userIdex);
+            System.out.println("Added " + userIdex);
+        } else {
+            System.out.println("Incorect index");
+        }
     }
 
     public static void printCart() {
@@ -37,8 +41,12 @@ public class Cart {
 
     public static void removeFromCart() {
         int userIdex = input.nextInt();
-        OperationInWarehouse.warehouse.add(userCart.get(userIdex));
-        userCart.remove(userIdex);
+        if (checkIndex(userIdex, userCart)) {
+            OperationInWarehouse.getWarehouse().add(userCart.get(userIdex));
+            userCart.remove(userIdex);
+        } else {
+            System.out.println("Incorrect Index");
+        }
     }
 
     public static double calculateTotalCart() {
@@ -52,14 +60,18 @@ public class Cart {
     public static void addToCartById() {
         Article toAdd = null;
         String userId = input.next();
-        for (Article a : OperationInWarehouse.warehouse) {
+        for (Article a : OperationInWarehouse.getWarehouse()) {
             if (a.getId().equals(userId)) {
                 toAdd = a;
-
             }
         }
-        userCart.add(toAdd);
-        OperationInWarehouse.warehouse.remove(toAdd);
+
+        if (toAdd != null) {
+            userCart.add(toAdd);
+            OperationInWarehouse.getWarehouse().remove(toAdd);
+        } else {
+            System.out.println("Incorrect id");
+        }
     }
 
     public static void removeFromCartById() {
@@ -70,8 +82,12 @@ public class Cart {
                 toRemove = a;
             }
         }
-        userCart.remove(toRemove);
-        OperationInWarehouse.warehouse.add(toRemove);
+        if (toRemove != null) {
+            userCart.remove(toRemove);
+            OperationInWarehouse.getWarehouse().add(toRemove);
+        } else {
+            System.out.println("Incorrect id");
+        }
     }
 
 
@@ -84,7 +100,7 @@ public class Cart {
                 System.out.println("\n Thanks for the purchase \n");
                 break;
             case "NO":
-                OperationInWarehouse.warehouse.addAll(userCart);
+                OperationInWarehouse.getWarehouse().addAll(userCart);
                 userCart.clear();
                 System.out.println("\n I hope you'll spend some money next time \n");
                 break;
@@ -92,5 +108,9 @@ public class Cart {
                 System.out.println("returning to menu");
                 break;
         }
+    }
+
+    public static boolean checkIndex(int a, List<Article> list) {
+        return a >= 0 && a < list.size();
     }
 }

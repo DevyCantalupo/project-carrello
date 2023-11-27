@@ -4,7 +4,11 @@ import java.util.*;
 
 public class OperationInWarehouse {
     static Scanner input = new Scanner(System.in);
-    static List<Article> warehouse = new ArrayList<>();
+    private static List<Article> warehouse = new ArrayList<>();
+
+    public static List<Article> getWarehouse() {
+        return warehouse;
+    }
 
     public OperationInWarehouse(List<Article> warehouse) {
         OperationInWarehouse.warehouse = warehouse;
