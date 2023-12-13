@@ -1,5 +1,7 @@
 package progetto;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Menu {
@@ -22,6 +24,7 @@ public class Menu {
 
     public static void menuOperations() throws Exception {
         boolean continueMenu = true;
+        List<Article> listOfArticleToSearch = new ArrayList<Article>();
         do {
             System.out.print("\n Insert your menu option: ");
             String menuChoice = menuScan.next();
@@ -45,15 +48,25 @@ public class Menu {
                     break;
                 case "5":
                     System.out.println("\n Insert the manufacturer of the product \n");
-                    OperationInWarehouse.findByManifacturer();
+                    String manufacturerToSearch = menuScan.next();
+                    OperationInWarehouse.findByManifacturer(listOfArticleToSearch, manufacturerToSearch);
+                    checkiFEmpty(listOfArticleToSearch);
                     break;
                 case "6":
                     System.out.println("\n Insert the model of the product \n");
-                    OperationInWarehouse.findByModel();
+                    String modelToSearch = menuScan.next();
+                    OperationInWarehouse.findByModel(listOfArticleToSearch, modelToSearch);
+                    checkiFEmpty(listOfArticleToSearch);
                     break;
                 case "7":
                     System.out.println("\n Insert the selling price to search \n");
-                    OperationInWarehouse.findSellingPrice();
+                    while (!menuScan.hasNextInt()) {
+                        System.out.println("invalid input , try again");
+                        menuScan.next();
+                    }
+                    int getPriceOfSellingToSearch = menuScan.nextInt();
+                    OperationInWarehouse.findSellingPrice(listOfArticleToSearch, getPriceOfSellingToSearch);
+                    checkiFEmpty(listOfArticleToSearch);
                     break;
                 case "8":
                     System.out.println("\n Insert purchase price to find \n");
@@ -67,7 +80,17 @@ public class Menu {
                     System.out.println(OperationInWarehouse.findAvgPrice());
                     break;
                 case "11":
-                    Cart.finalizePurchase();
+                if (Cart.getUserCart().isEmpty()) {
+                    System.out.println("\n user cart is empty \n");
+                }else{
+                    Cart.printCart();
+                    System.out.println("your actual price is : " + Cart.calculateTotalCart());
+                    System.out.println("\n Would you like to complete your purchase?");
+                    System.out.println(
+                            "Digit 'YES' if you want to puchase the articles, 'NO' if you don't want to buy the articles anymore, digit a random char to go back to the menu");
+                    String choice = menuScan.next();
+                    Cart.finalizePurchase(choice);
+                }   
                     break;
                 default:
                     System.out.println("\n Something went wrong \n");
@@ -88,7 +111,7 @@ public class Menu {
         boolean continueMenuOperations = true;
         do {
             System.out.print("\n Insert your cart menu option: \n");
-            String  menuChoice = menuScan.next();
+            String menuChoice = menuScan.next();
             switch (menuChoice) {
                 case "0":
                     continueMenuOperations = false;
@@ -101,7 +124,7 @@ public class Menu {
                     System.out.print("Enter ID of the product:");
                     Cart.addToCartById();
                     break;
-                case"3":
+                case "3":
                     Cart.printCart();
                     break;
                 case "4":
@@ -120,5 +143,15 @@ public class Menu {
                     break;
             }
         } while (continueMenuOperations);
+
+    }
+
+    public static void checkiFEmpty(List<Article> listOfArticleToSearch) {
+        if (listOfArticleToSearch.isEmpty()) {
+            System.out.println("\n No Article were found  \n");
+        } else {
+            System.out.println("\n" + listOfArticleToSearch + "\n");
+            listOfArticleToSearch.clear();
+        }
     }
 }

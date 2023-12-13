@@ -97,31 +97,20 @@ public class Cart {
         }
     }
 
-    public static void finalizePurchase() {
-        if (userCart.isEmpty()) {
-            System.out.println("\n user cart is empty \n");
-        } else {
-            printCart();
-            System.out.println("your actual price is : " + calculateTotalCart());
-            System.out.println("\n Would you like to complete your purchase?");
-            System.out.println(
-                    "Digit 'YES' if you want to puchase the articles, 'NO' if you don't want to buy the articles anymore, digit a random char to go back to the menu");
-            String choice = input.next();
-            switch (choice.toUpperCase()) {
-                case "YES":
-                    userCart.clear();
-                    System.out.println("\n Thanks for the purchase returning to main menu  \n");
-                    break;
-                case "NO":
-                    OperationInWarehouse.getWarehouse().addAll(userCart);
-                    userCart.clear();
-                    System.out.println("\n I hope you'll spend some money next time \n");
-                    break;
-                default:
-                    System.out.println("returning to menu");
-                    break;
-            }
+    public static void finalizePurchase(String choice) {
+        switch (choice.toUpperCase()) {
+            case "YES":
+                userCart.clear();
+                System.out.println("\n Thanks for the purchase returning to main menu  \n");
+                break;
+            case "NO":
+                OperationInWarehouse.getWarehouse().addAll(userCart);
+                userCart.clear();
+                System.out.println("\n I hope you'll spend some money next time \n");
+                break;
+            default:
+                System.out.println("returning to menu");
+                break;
         }
     }
-
 }
