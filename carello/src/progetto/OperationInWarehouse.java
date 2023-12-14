@@ -10,8 +10,7 @@ public class OperationInWarehouse {
         return warehouse;
     }
 
-    public OperationInWarehouse(List<Article> warehouse) {
-        OperationInWarehouse.warehouse = warehouse;
+    public OperationInWarehouse() {
     }
 
     public static void printWarehouseContents() {
@@ -107,74 +106,39 @@ public class OperationInWarehouse {
         warehouse.add(a);
     }
 
-    public static List<Article> findBuyingPrice() {
-        while (!input.hasNextInt()) {
-            System.out.println("invalid input , try again");
-            input.next();
-        }
-        int price = input.nextInt();
-        List<Article> listPrice = new ArrayList<Article>();
-
+    public static List<Article> findBuyingPrice(int price) {
+        List<Article> listPrice = new ArrayList<>();
         for (Article a : warehouse) {
             if (a.getPriceOfBuying() == price) {
                 listPrice.add(a);
             }
         }
-        if (listPrice.isEmpty()) {
-            System.out.println("\n The product of that price is not found  \n");
-        } else {
-            System.out.println("\n" + listPrice + "\n");
-        }
         return listPrice;
     }
 
-    public static List<Article> findRangePrice() {
-        System.out.println("\n Insert minimum price \n ");
-        List<Article> listRange = new ArrayList<Article>();
-        while (!input.hasNextInt()) {
-            System.out.println("invalid input , try again");
-            input.next();
-        }
-        int priceMin = input.nextInt();
-        System.out.println("\n Insert maximum price \n");
-        while (!input.hasNextInt()) {
-            System.out.println("invalid input , try again");
-            input.next();
-        }
-        int priceMax = input.nextInt();
+    public static List<Article> findRangePrice(int priceMin, int priceMax) {
+        List<Article> listRange = new ArrayList<>();
         for (Article a : warehouse) {
             if (a.getPriceOfSelling() >= priceMin && a.getPriceOfSelling() <= priceMax) {
                 listRange.add(a);
             }
         }
-        if (listRange.isEmpty()) {
-            System.out.println("\n The product of that price is not found  \n");
-        } else {
-            System.out.println("\n" + listRange + "\n");
-        }
         return listRange;
     }
 
-    public static double findAvgPrice() throws Exception {
-        // TODO gestire se viene inserito un articolo inesistente
-        System.out.println("Insert type of Article");
-        String type = input.next().toUpperCase();
-        double avg = 0;
-        int numArt = 0;
+    public static Double findAvgPrice(String type) {
+        Double totPrice = 0.0;
+        Integer numArt = 0;
         for (Article art : warehouse) {
             if (art.getType() == Article.TypeOfArticle.valueOf(type)) {
-                avg += art.getPriceOfBuying();
+                totPrice += art.getPriceOfBuying();
                 numArt++;
             }
         }
-        avg = avg / numArt;
-        if (avg != 0) {
-            return avg;
-        } else {
-            throw new Exception("This type of Article is not available in the warehouse");
-        }
-
+        Double avg = totPrice / numArt;
+        return avg;
     }
+
 
     public static List<Article> findByManifacturer(List<Article> listManufacturer, String manufacturerToSearch) {
         for (Article a : warehouse) {
