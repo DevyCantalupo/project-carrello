@@ -176,55 +176,29 @@ public class OperationInWarehouse {
 
     }
 
-    public static List<Article> findByManifacturer() {
-
-        List<Article> listManufacturer = new ArrayList<Article>();
-        String manufacturerToSearch = input.nextLine();
+    public static List<Article> findByManifacturer(List<Article> listManufacturer, String manufacturerToSearch) {
         for (Article a : warehouse) {
             if (a.getManufacturer().equals(manufacturerToSearch)) {
                 listManufacturer.add(a);
             }
         }
-        if (listManufacturer.isEmpty()) {
-            System.out.println("\n There are no article from that manufacturer \n");
-        } else {
-            System.out.println("\n" + listManufacturer + "\n");
-        }
         return listManufacturer;
     }
 
-    public static List<Article> findByModel() {
-        List<Article> listModel = new ArrayList<Article>();
-        String modelToSearch = input.nextLine();
+    public static List<Article> findByModel(List<Article> listModel, String modelToSearch) {
         for (Article a : warehouse) {
             if (a.getModel().equals(modelToSearch)) {
                 listModel.add(a);
             }
         }
-        if (listModel.isEmpty()) {
-            System.out.println("\n There are no article with that model \n");
-        } else {
-            System.out.println("\n" + listModel + "\n");
-        }
         return listModel;
     }
 
-    public static List<Article> findSellingPrice() {
-        List<Article> listPriceOfSelling = new ArrayList<Article>();
-        while (!input.hasNextInt()) {
-            System.out.println("invalid input , try again");
-            input.next();
-        }
-        int getPriceOfSellingToSearch = input.nextInt();
+    public static List<Article> findSellingPrice(List<Article> listPriceOfSelling, int getPriceOfSellingToSearch) {
         for (Article a : warehouse) {
             if (a.getPriceOfSelling() == getPriceOfSellingToSearch) {
                 listPriceOfSelling.add(a);
             }
-        }
-        if (listPriceOfSelling.isEmpty()) {
-            System.out.println("\n There are no article with that selling price \n");
-        } else {
-            System.out.println("\n" + listPriceOfSelling + "\n");
         }
         return listPriceOfSelling;
     }

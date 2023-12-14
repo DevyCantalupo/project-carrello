@@ -7,4 +7,14 @@ public class OperationInWarehouseTest {
     public void testFindByManifacturer() {
 
     }
+
+      @Test
+    public void testfindByModel() {
+
+    }
+
+      @Test
+    public void testfindSellingPrice() {
+
+    }
 }
