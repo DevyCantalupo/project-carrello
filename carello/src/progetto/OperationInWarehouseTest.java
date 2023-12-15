@@ -14,6 +14,13 @@ public class OperationInWarehouseTest {
       Assert.assertFalse(foundArticles.isEmpty());
     }
 
+    @Test
+    public void testFindByManufcacturereNotReturnNull(){
+      String toFind = "hp";
+      List<Article> foundArticles = OperationInWarehouse.findByManifacturer(articleList, toFind);
+      Assert.assertNotNull(foundArticles);
+    }
+
       @Test
     public void testfindByModel() {
 
