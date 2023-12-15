@@ -24,64 +24,22 @@ public class OperationInWarehouse {
         }
     }
 
-    public static void addToWarehouse() {
-        Article.TypeOfArticle type = null;
-        boolean correctType = false;
-        do {
-            String inputType = input.nextLine().toUpperCase();
-            if (Objects.equals(inputType, "TABLET")) {
-                type = Article.TypeOfArticle.TABLET;
-                correctType = true;
-            } else if (Objects.equals(inputType, "SMARTPHONE")) {
-                type = Article.TypeOfArticle.SMARTPHONE;
-                correctType = true;
-            } else if (Objects.equals(inputType, "NOTEBOOK")) {
-                type = Article.TypeOfArticle.NOTEBOOK;
-                correctType = true;
-            } else {
-                System.out.println("invalid input. Enter a correct product Type");
-            }
-        } while (correctType == false);
-
-        System.out.println("Enter the MANUFACTURER of the product");
-        String manufacturer = input.nextLine();
-        System.out.println("Enter the MODEL NAME of the product");
-        String modelName = input.nextLine();
-        System.out.println("Enter a brief description for the product");
-        String briefDescription = input.nextLine();
-
-        try {
-            System.out.println("Enter the SCREEN SIZE of the product");
-            double screenSizeInInches = input.nextDouble();
-            System.out.println("Enter the INTERNAL MEMORY SIZE of the product");
-            int internalMemorySize = input.nextInt();
-            System.out.println("Enter the PURCHASE PRICE of the product");
-            double purchasePrice = input.nextDouble();
-            System.out.println("Enter the SELL PRICE of the product");
-            double sellPrice = input.nextDouble();
-
-            String id = GenerateUniqueId.generateUniqueID();
-            System.out.println("Assigned unique ID for the product is: " + id);
+    public static void addToWarehouse(Article.TypeOfArticle type, String manufacturer, String modelName, String briefDescription,
+                                      double screenSizeInInches, int internalMemorySize, double purchasePrice, double sellPrice, String id) {
 
             if (type == Article.TypeOfArticle.TABLET) {
                 Tablet tempProduct = new Tablet(manufacturer, modelName, briefDescription, screenSizeInInches,
                         internalMemorySize, purchasePrice, sellPrice, id);
                 warehouse.add(tempProduct);
-            }
-            if (type == Article.TypeOfArticle.SMARTPHONE) {
+            } else if (type == Article.TypeOfArticle.SMARTPHONE) {
                 Smartphone tempProduct = new Smartphone(manufacturer, modelName, briefDescription, screenSizeInInches,
                         internalMemorySize, purchasePrice, sellPrice, id);
                 warehouse.add(tempProduct);
-            }
-            if (type == Article.TypeOfArticle.NOTEBOOK) {
+            } else if (type == Article.TypeOfArticle.NOTEBOOK) {
                 Notebook tempProduct = new Notebook(manufacturer, modelName, briefDescription, screenSizeInInches,
                         internalMemorySize, purchasePrice, sellPrice, id);
                 warehouse.add(tempProduct);
             }
-        } catch (InputMismatchException e) {
-            System.out.println("\n invalid input , returning to the main menu ");
-            input.nextLine();
-        }
     }
 
     public static void searchType() {

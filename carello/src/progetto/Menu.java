@@ -23,15 +23,44 @@ public class Menu {
     public static void menuOperations() throws Exception {
         boolean continueMenu = true;
         do {
-            System.out.print("\n Insert your menu option: ");
+            System.out.println("Insert your menu option: ");
             String menuChoice = menuScan.next();
             switch (menuChoice) {
                 case "0":
                     continueMenu = false;
                     break;
                 case "1":
-                    System.out.println("\n Enter the TYPE of the product you want to add \n");
-                    OperationInWarehouse.addToWarehouse();
+
+                    Article.TypeOfArticle type = ManageUserInput.validateTypeInput();
+
+                    System.out.println("Enter the MANUFACTURER of the product");
+                    menuScan.nextLine();
+                    String manufacturer = menuScan.nextLine();
+
+
+                    System.out.println("Enter the MODEL NAME of the product");
+                    String modelName = menuScan.nextLine();
+
+                    String briefDescription = ManageUserInput.descriptionInput();
+
+                    System.out.println("Enter the SCREEN SIZE of the product");
+                    double screenSizeInInches = menuScan.nextDouble();
+
+                    System.out.println("Enter the INTERNAL MEMORY SIZE of the product");
+                    int internalMemorySize = menuScan.nextInt();
+
+                    System.out.println("Enter the PURCHASE PRICE of the product");
+                    double purchasePrice = menuScan.nextDouble();
+
+                    System.out.println("Enter the SELL PRICE of the product");
+                    double sellPrice = menuScan.nextDouble();
+
+                    String id = GenerateUniqueId.generateUniqueID();
+                    System.out.println("Assigned unique ID for the product is: " + id);
+
+                    OperationInWarehouse.addToWarehouse(type, manufacturer, modelName, briefDescription, screenSizeInInches,
+                            internalMemorySize, purchasePrice, sellPrice, id);
+
                     break;
                 case "2":
                     OperationInWarehouse.printWarehouseContents();
