@@ -60,7 +60,7 @@ public class OperationInWarehouse {
             System.out.println("Enter the SELL PRICE of the product");
             double sellPrice = input.nextDouble();
 
-            String id = GenerateUniqueId.generateUniqueID();
+            String id = Utilities.generateUniqueID();
             System.out.println("Assigned unique ID for the product is: " + id);
 
             if (type == Article.TypeOfArticle.TABLET) {
