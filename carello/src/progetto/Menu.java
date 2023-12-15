@@ -50,13 +50,13 @@ public class Menu {
                     System.out.println("\n Insert the manufacturer of the product \n");
                     String manufacturerToSearch = menuScan.next();
                     OperationInWarehouse.findByManifacturer(listOfArticleToSearch, manufacturerToSearch);
-                    checkiFEmpty(listOfArticleToSearch);
+                    checkIfEmpty(listOfArticleToSearch);
                     break;
                 case "6":
                     System.out.println("\n Insert the model of the product \n");
                     String modelToSearch = menuScan.next();
                     OperationInWarehouse.findByModel(listOfArticleToSearch, modelToSearch);
-                    checkiFEmpty(listOfArticleToSearch);
+                    checkIfEmpty(listOfArticleToSearch);
                     break;
                 case "7":
                     System.out.println("\n Insert the selling price to search \n");
@@ -66,31 +66,45 @@ public class Menu {
                     }
                     int getPriceOfSellingToSearch = menuScan.nextInt();
                     OperationInWarehouse.findSellingPrice(listOfArticleToSearch, getPriceOfSellingToSearch);
-                    checkiFEmpty(listOfArticleToSearch);
+                    checkIfEmpty(listOfArticleToSearch);
                     break;
                 case "8":
                     System.out.println("\n Insert purchase price to find \n");
-                    OperationInWarehouse.findBuyingPrice();
+                    int price = menuScan.nextInt();
+                    List<Article> listPrice = OperationInWarehouse.findBuyingPrice(price);
+                    checkIfEmpty(listPrice);
                     break;
                 case "9":
                     System.out.println("\n Find product between this selling range price. \n");
-                    OperationInWarehouse.findRangePrice();
+                    System.out.println("\n Insert minimum price \n ");
+                    int priceMin = menuScan.nextInt();
+                    System.out.println("\n Insert maximum price \n");
+                    int priceMax = menuScan.nextInt();
+                    List<Article> listRange = OperationInWarehouse.findRangePrice(priceMin, priceMax);
+                    checkIfEmpty(listRange);
                     break;
                 case "10":
-                    System.out.println(OperationInWarehouse.findAvgPrice());
+                    System.out.println("Insert type of Article");
+                    String type = menuScan.next().toUpperCase();
+                    if (Validation.isEnum(type)) {
+                        Double result = OperationInWarehouse.findAvgPrice(type);
+                        System.out.println("Avg Price of " + type + ": " + result);
+                    } else {
+                        System.out.println("We don't sell this type of article");
+                    }
                     break;
                 case "11":
-                if (Cart.getUserCart().isEmpty()) {
-                    System.out.println("\n user cart is empty \n");
-                }else{
-                    Cart.printCart();
-                    System.out.println("your actual price is : " + Cart.calculateTotalCart());
-                    System.out.println("\n Would you like to complete your purchase?");
-                    System.out.println(
-                            "Digit 'YES' if you want to puchase the articles, 'NO' if you don't want to buy the articles anymore, digit a random char to go back to the menu");
-                    String choice = menuScan.next();
-                    Cart.finalizePurchase(choice);
-                }   
+                    if (Cart.getUserCart().isEmpty()) {
+                        System.out.println("\n user cart is empty \n");
+                    } else {
+                        Cart.printCart();
+                        System.out.println("your actual price is : " + Cart.calculateTotalCart());
+                        System.out.println("\n Would you like to complete your purchase?");
+                        System.out.println(
+                                "Digit 'YES' if you want to puchase the articles, 'NO' if you don't want to buy the articles anymore, digit a random char to go back to the menu");
+                        String choice = menuScan.next();
+                        Cart.finalizePurchase(choice);
+                    }
                     break;
                 default:
                     System.out.println("\n Something went wrong \n");
@@ -146,12 +160,12 @@ public class Menu {
 
     }
 
-    public static void checkiFEmpty(List<Article> listOfArticleToSearch) {
-        if (listOfArticleToSearch.isEmpty()) {
+    public static void checkIfEmpty(List<Article> list) {
+        if (list.isEmpty()) {
             System.out.println("\n No Article were found  \n");
         } else {
-            System.out.println("\n" + listOfArticleToSearch + "\n");
-            listOfArticleToSearch.clear();
+            System.out.println("\n" + list + "\n");
+            list.clear();
         }
     }
 }
