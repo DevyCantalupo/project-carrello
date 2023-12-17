@@ -13,7 +13,7 @@ public class OperationInWarehouse {
     public OperationInWarehouse() {
     }
 
-    public static void printWarehouseContents() {
+    public void printWarehouseContents() {
         if (warehouse.isEmpty()) {
             System.out.println("The warehouse is empty");
         } else {
@@ -23,7 +23,7 @@ public class OperationInWarehouse {
         }
     }
 
-    public static void addToWarehouse() {
+    public void addToWarehouse() {
         Article.TypeOfArticle type = null;
         boolean correctType = false;
         do {
@@ -139,8 +139,8 @@ public class OperationInWarehouse {
         return avg;
     }
 
-
-    public static List<Article> findByManifacturer(List<Article> listManufacturer, String manufacturerToSearch) {
+    public static List<Article> findByManifacturer(String manufacturerToSearch) {
+        List<Article> listManufacturer = new ArrayList<>();
         for (Article a : warehouse) {
             if (a.getManufacturer().equals(manufacturerToSearch)) {
                 listManufacturer.add(a);
@@ -149,7 +149,8 @@ public class OperationInWarehouse {
         return listManufacturer;
     }
 
-    public static List<Article> findByModel(List<Article> listModel, String modelToSearch) {
+    public static List<Article> findByModel(String modelToSearch) {
+        List<Article> listModel = new ArrayList<>();
         for (Article a : warehouse) {
             if (a.getModel().equals(modelToSearch)) {
                 listModel.add(a);
@@ -158,16 +159,13 @@ public class OperationInWarehouse {
         return listModel;
     }
 
-    public static List<Article> findSellingPrice(List<Article> listPriceOfSelling, int getPriceOfSellingToSearch) {
+    public static List<Article> findSellingPrice(int getPriceOfSellingToSearch) {
+        List<Article> listPriceOfSelling = new ArrayList<>();
         for (Article a : warehouse) {
             if (a.getPriceOfSelling() == getPriceOfSellingToSearch) {
                 listPriceOfSelling.add(a);
             }
         }
         return listPriceOfSelling;
-    }
-
-    public static boolean checkIndex(int a, List<Article> list) {
-        return a >= 0 && a < list.size();
     }
 }

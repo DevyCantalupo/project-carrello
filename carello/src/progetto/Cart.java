@@ -1,12 +1,11 @@
 package progetto;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class Cart {
     static Scanner input = new Scanner(System.in);
-    private static List<Article> userCart = new ArrayList<>();
+    private static List<Article> userCart;
 
     public Cart(List<Article> userCart) {
         Cart.userCart = userCart;
@@ -16,13 +15,13 @@ public class Cart {
         return userCart;
     }
 
-    public static void addToCart() {
+    public void addToCart() {
         while (!input.hasNextInt()) {
             System.out.println("\n insert a valid option");
             input.next();
         }
         int userIdex = input.nextInt();
-        if (OperationInWarehouse.checkIndex(userIdex, OperationInWarehouse.getWarehouse())) {
+        if (checkIndex(userIdex, OperationInWarehouse.getWarehouse())) {
             userCart.add(OperationInWarehouse.getWarehouse().get(userIdex));
             OperationInWarehouse.getWarehouse().remove(userIdex);
             System.out.println("Added " + userIdex);
@@ -31,7 +30,7 @@ public class Cart {
         }
     }
 
-    public static void printCart() {
+    public void printCart() {
         if (userCart.isEmpty()) {
             System.out.println("\n user cart is empty \n");
         } else {
@@ -43,13 +42,13 @@ public class Cart {
 
     }
 
-    public static void removeFromCart() {
+    public void removeFromCart() {
         while (!input.hasNextInt()) {
             System.out.println("\n insert a valid option");
             input.next();
         }
         int userIdex = input.nextInt();
-        if (OperationInWarehouse.checkIndex(userIdex, userCart)) {
+        if (checkIndex(userIdex, userCart)) {
             OperationInWarehouse.getWarehouse().add(userCart.get(userIdex));
             userCart.remove(userIdex);
         } else {
@@ -57,7 +56,7 @@ public class Cart {
         }
     }
 
-    public static double calculateTotalCart() {
+    public double calculateTotalCart() {
         double total = 0.0;
         for (Article article : userCart) {
             total += article.getPriceOfSelling();
@@ -65,7 +64,7 @@ public class Cart {
         return total;
     }
 
-    public static void addToCartById() {
+    public void addToCartById() {
         Article toAdd = null;
         String userId = input.next();
         for (Article a : OperationInWarehouse.getWarehouse()) {
@@ -81,7 +80,7 @@ public class Cart {
         }
     }
 
-    public static void removeFromCartById() {
+    public void removeFromCartById() {
         Article toRemove = null;
         String userId = input.next();
         for (Article a : userCart) {
@@ -113,4 +112,9 @@ public class Cart {
                 break;
         }
     }
+
+    public static boolean checkIndex(int a, List<Article> list) {
+        return a >= 0 && a < list.size();
+    }
+
 }

@@ -5,8 +5,9 @@ class Main {
 
         printWelcomeMsg();
         Warehouse.productsAlreadyInWarehouse();
-        Menu.printMenuOperations();
-        Menu.menuOperations();
+        Menu menu = new Menu();
+        menu.printMenuOperations();
+        menu.menuOperations();
         printGoodbyeMsg();
     }
     

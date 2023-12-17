@@ -6,8 +6,10 @@ import java.util.Scanner;
 
 public class Menu {
     static Scanner menuScan = new Scanner(System.in);
+    Cart cart = new Cart(new ArrayList<>());
+    OperationInWarehouse operation = new OperationInWarehouse();
 
-    public static void printMenuOperations() {
+    public void printMenuOperations() {
         System.out.println("Press 0 to quit the program");
         System.out.println("Press 1 to add a product to the warehouse");
         System.out.println("Press 2 to see what is currently in the warehouse"); // Metodo 1
@@ -22,9 +24,8 @@ public class Menu {
         System.out.println("Press 11 to conclude the sale transaction");
     }
 
-    public static void menuOperations() throws Exception {
+    public void menuOperations() throws Exception {
         boolean continueMenu = true;
-        List<Article> listOfArticleToSearch = new ArrayList<Article>();
         do {
             System.out.print("\n Insert your menu option: ");
             String menuChoice = menuScan.next();
@@ -34,10 +35,10 @@ public class Menu {
                     break;
                 case "1":
                     System.out.println("\n Enter the TYPE of the product you want to add \n");
-                    OperationInWarehouse.addToWarehouse();
+                    operation.addToWarehouse();
                     break;
                 case "2":
-                    OperationInWarehouse.printWarehouseContents();
+                    operation.printWarehouseContents();
                     break;
                 case "3":
                     userCartMenu();
@@ -49,27 +50,25 @@ public class Menu {
                 case "5":
                     System.out.println("\n Insert the manufacturer of the product \n");
                     String manufacturerToSearch = menuScan.next();
-                    OperationInWarehouse.findByManifacturer(listOfArticleToSearch, manufacturerToSearch);
-                    checkIfEmpty(listOfArticleToSearch);
+                    List<Article> listManifacturer = OperationInWarehouse.findByManifacturer(manufacturerToSearch);
+                    checkIfEmpty(listManifacturer);
                     break;
                 case "6":
                     System.out.println("\n Insert the model of the product \n");
                     String modelToSearch = menuScan.next();
-                    OperationInWarehouse.findByModel(listOfArticleToSearch, modelToSearch);
-                    checkIfEmpty(listOfArticleToSearch);
+                    List<Article> listModel = OperationInWarehouse.findByModel(modelToSearch);
+                    checkIfEmpty(listModel);
                     break;
                 case "7":
                     System.out.println("\n Insert the selling price to search \n");
-                    while (!menuScan.hasNextInt()) {
-                        System.out.println("invalid input , try again");
-                        menuScan.next();
-                    }
+                    checkInput();
                     int getPriceOfSellingToSearch = menuScan.nextInt();
-                    OperationInWarehouse.findSellingPrice(listOfArticleToSearch, getPriceOfSellingToSearch);
-                    checkIfEmpty(listOfArticleToSearch);
+                    List<Article> listSelling = OperationInWarehouse.findSellingPrice(getPriceOfSellingToSearch);
+                    checkIfEmpty(listSelling);
                     break;
                 case "8":
                     System.out.println("\n Insert purchase price to find \n");
+                    checkInput();
                     int price = menuScan.nextInt();
                     List<Article> listPrice = OperationInWarehouse.findBuyingPrice(price);
                     checkIfEmpty(listPrice);
@@ -77,8 +76,10 @@ public class Menu {
                 case "9":
                     System.out.println("\n Find product between this selling range price. \n");
                     System.out.println("\n Insert minimum price \n ");
+                    checkInput();
                     int priceMin = menuScan.nextInt();
                     System.out.println("\n Insert maximum price \n");
+                    checkInput();
                     int priceMax = menuScan.nextInt();
                     List<Article> listRange = OperationInWarehouse.findRangePrice(priceMin, priceMax);
                     checkIfEmpty(listRange);
@@ -97,8 +98,8 @@ public class Menu {
                     if (Cart.getUserCart().isEmpty()) {
                         System.out.println("\n user cart is empty \n");
                     } else {
-                        Cart.printCart();
-                        System.out.println("your actual price is : " + Cart.calculateTotalCart());
+                        cart.printCart();
+                        System.out.println("your actual price is : " + cart.calculateTotalCart());
                         System.out.println("\n Would you like to complete your purchase?");
                         System.out.println(
                                 "Digit 'YES' if you want to puchase the articles, 'NO' if you don't want to buy the articles anymore, digit a random char to go back to the menu");
@@ -113,7 +114,7 @@ public class Menu {
         } while (continueMenu);
     }
 
-    public static void userCartMenu() {
+    public void userCartMenu() {
         System.out.println("Press 0 to return to the previous menu");
         System.out.println("Press 1 to add a product to the cart");
         System.out.println("Press 2 to add a product to the cart by id");
@@ -132,25 +133,25 @@ public class Menu {
                     break;
                 case "1":
                     System.out.print("Enter INDEX of the product:");
-                    Cart.addToCart();
+                    cart.addToCart();
                     break;
                 case "2":
                     System.out.print("Enter ID of the product:");
-                    Cart.addToCartById();
+                    cart.addToCartById();
                     break;
                 case "3":
-                    Cart.printCart();
+                    cart.printCart();
                     break;
                 case "4":
                     System.out.print("Enter the INDEX of the thing you wish to remove:");
-                    Cart.removeFromCart();
+                    cart.removeFromCart();
                     break;
                 case "5":
                     System.out.print("Enter the ID of the thing you wish to remove:");
-                    Cart.removeFromCartById();
+                    cart.removeFromCartById();
                     break;
                 case "6":
-                    System.out.println("\nTotal Price is : " + Cart.calculateTotalCart());
+                    System.out.println("\nTotal Price is : " + cart.calculateTotalCart());
                     break;
                 default:
                     System.out.println("\n Something went wrong \n");
@@ -160,12 +161,19 @@ public class Menu {
 
     }
 
-    public static void checkIfEmpty(List<Article> list) {
+    public void checkIfEmpty(List<Article> list) {
         if (list.isEmpty()) {
             System.out.println("\n No Article were found  \n");
         } else {
             System.out.println("\n" + list + "\n");
             list.clear();
+        }
+    }
+
+    public static void checkInput() {
+        while (!menuScan.hasNextInt()) {
+            System.out.println("invalid input , try again");
+            menuScan.next();
         }
     }
 }
