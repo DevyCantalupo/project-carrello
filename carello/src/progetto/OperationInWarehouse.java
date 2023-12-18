@@ -126,11 +126,25 @@ public class OperationInWarehouse {
         return listRange;
     }
 
+    @Deprecated
     public static Double findAvgPrice(String type) {
         Double totPrice = 0.0;
         Integer numArt = 0;
         for (Article art : warehouse) {
             if (art.getType() == Article.TypeOfArticle.valueOf(type)) {
+                totPrice += art.getPriceOfBuying();
+                numArt++;
+            }
+        }
+        Double avg = totPrice / numArt;
+        return avg;
+    }
+
+    public Double findAvgPrice(Article.TypeOfArticle type){
+        Double totPrice = 0.0;
+        Integer numArt = 0;
+        for (Article art : warehouse) {
+            if (art.getType() == type) {
                 totPrice += art.getPriceOfBuying();
                 numArt++;
             }
