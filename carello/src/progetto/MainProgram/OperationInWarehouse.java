@@ -7,7 +7,7 @@ import progetto.Items.Article;
 import progetto.Items.Notebook;
 import progetto.Items.Smartphone;
 import progetto.Items.Tablet;
-import progetto.Utility.GenerateUniqueId;
+import progetto.Utility.Utility;
 
 public class OperationInWarehouse {
     static Scanner input = new Scanner(System.in);
@@ -63,7 +63,7 @@ public class OperationInWarehouse {
             System.out.println("Enter the SELL PRICE of the product");
             double sellPrice = input.nextDouble();
 
-            String id = GenerateUniqueId.generateUniqueID();
+            String id = Utility.generateUniqueID();
             System.out.println("Assigned unique ID for the product is: " + id);
 
             if (type == Article.TypeOfArticle.TABLET) {

@@ -2,6 +2,7 @@ package progetto.MainProgram;
 
 import progetto.Items.Article;
 import progetto.FakeDatabase.Warehouse;
+import progetto.Utility.Utility;
 import java.util.List;
 import java.util.Scanner;
 
@@ -23,7 +24,7 @@ public class Cart {
             input.next();
         }
         int userIdex = input.nextInt();
-        if (checkIndex(userIdex, Warehouse.getWarehouse())) {
+        if (Utility.checkIndex(userIdex, Warehouse.getWarehouse())) {
             userCart.add(Warehouse.getWarehouse().get(userIdex));
             Warehouse.getWarehouse().remove(userIdex);
             System.out.println("Added " + userIdex);
@@ -50,7 +51,7 @@ public class Cart {
             input.next();
         }
         int userIdex = input.nextInt();
-        if (checkIndex(userIdex, userCart)) {
+        if (Utility.checkIndex(userIdex, userCart)) {
             Warehouse.getWarehouse().add(userCart.get(userIdex));
             userCart.remove(userIdex);
         } else {
@@ -113,10 +114,6 @@ public class Cart {
                 System.out.println("returning to menu");
                 break;
         }
-    }
-
-    public static boolean checkIndex(int a, List<Article> list) {
-        return a >= 0 && a < list.size();
     }
 
 }
