@@ -1,8 +1,8 @@
-package progetto.MainProgram;
+package progetto.Mainprogram;
 
 import org.junit.Test;
 
-import progetto.FakeDatabase.Warehouse;
+import progetto.Fakedatabase.Warehouse;
 import progetto.Items.Article;
 
 import static org.junit.Assert.assertEquals;

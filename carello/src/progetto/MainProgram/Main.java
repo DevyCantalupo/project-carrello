@@ -1,6 +1,6 @@
-package progetto.MainProgram;
+package progetto.Mainprogram;
 
-import progetto.FakeDatabase.Warehouse;
+import progetto.Fakedatabase.Warehouse;
 
 class Main {
     public static void main(String[] args) throws Exception {

@@ -1,4 +1,4 @@
-package progetto.MainProgram;
+package progetto.Mainprogram;
 
 import java.util.ArrayList;
 import java.util.List;

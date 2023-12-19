@@ -1,8 +1,8 @@
-package progetto.MainProgram;
+package progetto.Mainprogram;
 
 import java.util.*;
 
-import progetto.FakeDatabase.Warehouse;
+import progetto.Fakedatabase.Warehouse;
 import progetto.Items.Article;
 import progetto.Items.Notebook;
 import progetto.Items.Smartphone;
@@ -11,7 +11,7 @@ import progetto.Utility.Utility;
 
 public class OperationInWarehouse {
     static Scanner input = new Scanner(System.in);
-    
+
     private static List<Article> warehouseList = Warehouse.getWarehouse();
 
     public OperationInWarehouse() {

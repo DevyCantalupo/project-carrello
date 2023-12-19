@@ -1,4 +1,4 @@
-package progetto.FakeDatabase;
+package progetto.Fakedatabase;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +9,6 @@ import progetto.Items.Smartphone;
 import progetto.Items.Tablet;
 import progetto.Utility.Utility;
 
-
 public class Warehouse {
         private static List<Article> warehouse = new ArrayList<>();
 
@@ -17,7 +16,7 @@ public class Warehouse {
                 return warehouse;
         }
 
-        public static  void productsAlreadyInWarehouse() {
+        public static void productsAlreadyInWarehouse() {
                 Article product1 = new Tablet("Susa", "VK64", "Yep, it's a tablet", 10.5, 64, 80, 59.99,
                                 Utility.generateUniqueID());
                 Article product2 = new Tablet("SpyPhone", "69", "James Bond approves", 2, 2048, 6000, 10000,
@@ -58,7 +57,7 @@ public class Warehouse {
 
         }
 
-       static void addWarehouse(Article a) {
+        private static void addWarehouse(Article a) {
                 warehouse.add(a);
         }
 

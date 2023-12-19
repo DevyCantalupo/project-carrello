@@ -1,7 +1,7 @@
-package progetto.MainProgram;
+package progetto.Mainprogram;
 
+import progetto.Fakedatabase.Warehouse;
 import progetto.Items.Article;
-import progetto.FakeDatabase.Warehouse;
 import progetto.Utility.Utility;
 import java.util.List;
 import java.util.Scanner;
