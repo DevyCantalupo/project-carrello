@@ -1,8 +1,8 @@
-package progetto;
+package progetto.Items;
 
-public class Tablet implements Article {
+public class Smartphone implements Article {
 
-    TypeOfArticle type = TypeOfArticle.TABLET;
+    TypeOfArticle type = TypeOfArticle.SMARTPHONE;
     private String manufacturer;
     private String model;
     private String description;
@@ -12,7 +12,7 @@ public class Tablet implements Article {
     private double priceOfSelling;
     private String id;
 
-    public Tablet(String manufacturer, String model, String description, double screenSizeInInches, int memory, double priceOfBuying, double priceOfSelling, String id) {
+    public Smartphone(String manufacturer, String model, String description, double screenSizeInInches, int memory, double priceOfBuying, double priceOfSelling, String id) {
         this.manufacturer = manufacturer;
         this.model = model;
         this.description = description;
@@ -25,7 +25,7 @@ public class Tablet implements Article {
 
     @Override
     public String toString() {
-        return "Tablet{" +
+        return "Smartphone{" +
                 "type=" + type +
                 ", manufacturer='" + manufacturer + '\'' +
                 ", model='" + model + '\'' +

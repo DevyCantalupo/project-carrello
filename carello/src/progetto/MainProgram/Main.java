@@ -1,4 +1,6 @@
-package progetto;
+package progetto.MainProgram;
+
+import progetto.FakeDatabase.Warehouse;
 
 class Main {
     public static void main(String[] args) throws Exception {

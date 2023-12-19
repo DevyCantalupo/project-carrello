@@ -1,13 +1,17 @@
-package progetto;
+package progetto.MainProgram;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import progetto.Items.Article;
+import progetto.Utility.Utility;
+
 public class Menu {
     static Scanner menuScan = new Scanner(System.in);
     Cart cart = new Cart(new ArrayList<>());
     OperationInWarehouse operation = new OperationInWarehouse();
+    Utility utility = new Utility();
 
     public void printMenuOperations() {
         System.out.println("Press 0 to quit the program");
@@ -51,43 +55,43 @@ public class Menu {
                     System.out.println("\n Insert the manufacturer of the product \n");
                     String manufacturerToSearch = menuScan.next();
                     List<Article> listManifacturer = OperationInWarehouse.findByManifacturer(manufacturerToSearch);
-                    checkIfEmpty(listManifacturer);
+                    utility.checkIfEmpty(listManifacturer);
                     break;
                 case "6":
                     System.out.println("\n Insert the model of the product \n");
                     String modelToSearch = menuScan.next();
                     List<Article> listModel = OperationInWarehouse.findByModel(modelToSearch);
-                    checkIfEmpty(listModel);
+                    utility.checkIfEmpty(listModel);
                     break;
                 case "7":
                     System.out.println("\n Insert the selling price to search \n");
-                    checkInput();
+                    Utility.checkInput(menuScan);
                     int getPriceOfSellingToSearch = menuScan.nextInt();
                     List<Article> listSelling = OperationInWarehouse.findSellingPrice(getPriceOfSellingToSearch);
-                    checkIfEmpty(listSelling);
+                    utility.checkIfEmpty(listSelling);
                     break;
                 case "8":
                     System.out.println("\n Insert purchase price to find \n");
-                    checkInput();
+                    Utility.checkInput(menuScan);
                     int price = menuScan.nextInt();
                     List<Article> listPrice = OperationInWarehouse.findBuyingPrice(price);
-                    checkIfEmpty(listPrice);
+                    utility.checkIfEmpty(listPrice);
                     break;
                 case "9":
                     System.out.println("\n Find product between this selling range price. \n");
                     System.out.println("\n Insert minimum price \n ");
-                    checkInput();
+                    Utility.checkInput(menuScan);
                     int priceMin = menuScan.nextInt();
                     System.out.println("\n Insert maximum price \n");
-                    checkInput();
+                    Utility.checkInput(menuScan);
                     int priceMax = menuScan.nextInt();
                     List<Article> listRange = OperationInWarehouse.findRangePrice(priceMin, priceMax);
-                    checkIfEmpty(listRange);
+                    utility.checkIfEmpty(listRange);
                     break;
                 case "10":
                     System.out.println("Insert type of Article");
                     String type = menuScan.next().toUpperCase();
-                    if (Validation.isEnum(type)) {
+                    if (Utility.isEnum(type)) {
                         Double result = OperationInWarehouse.findAvgPrice(type);
                         System.out.println("Avg Price of " + type + ": " + result);
                     } else {
@@ -161,19 +165,4 @@ public class Menu {
 
     }
 
-    public void checkIfEmpty(List<Article> list) {
-        if (list.isEmpty()) {
-            System.out.println("\n No Article were found  \n");
-        } else {
-            System.out.println("\n" + list + "\n");
-            list.clear();
-        }
-    }
-
-    public static void checkInput() {
-        while (!menuScan.hasNextInt()) {
-            System.out.println("invalid input , try again");
-            menuScan.next();
-        }
-    }
 }
