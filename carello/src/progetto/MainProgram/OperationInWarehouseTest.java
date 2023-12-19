@@ -1,6 +1,9 @@
-package progetto;
+package progetto.MainProgram;
 
 import org.junit.Test;
+
+import progetto.FakeDatabase.Warehouse;
+import progetto.Items.Article;
 
 import static org.junit.Assert.assertEquals;
 
@@ -21,7 +24,7 @@ public class OperationInWarehouseTest {
 
   @Test
   public void testFindByManufacturerWithEmptyWarehouse() {
-    OperationInWarehouse.getWarehouse().clear();
+    Warehouse.getWarehouse().clear();
     List<Article> testManufacturer = OperationInWarehouse.findByManifacturer("Hp");
     assertEquals(0, testManufacturer.size());
   }

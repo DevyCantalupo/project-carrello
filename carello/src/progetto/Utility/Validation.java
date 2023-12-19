@@ -1,6 +1,8 @@
-package progetto;
+package progetto.Utility;
 
 import java.util.Objects;
+
+import progetto.Items.Article;
 
 public class Validation {
     public static boolean isEnum(String type) {

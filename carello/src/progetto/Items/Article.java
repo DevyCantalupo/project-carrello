@@ -1,4 +1,4 @@
-package progetto;
+package progetto.Items;
 
 public interface Article {
     public enum TypeOfArticle {

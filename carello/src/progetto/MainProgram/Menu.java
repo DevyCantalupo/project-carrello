@@ -1,8 +1,11 @@
-package progetto;
+package progetto.MainProgram;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
+import progetto.Items.Article;
+import progetto.Utility.Validation;
 
 public class Menu {
     static Scanner menuScan = new Scanner(System.in);

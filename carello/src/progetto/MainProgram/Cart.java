@@ -1,5 +1,7 @@
-package progetto;
+package progetto.MainProgram;
 
+import progetto.Items.Article;
+import progetto.FakeDatabase.Warehouse;
 import java.util.List;
 import java.util.Scanner;
 
@@ -21,9 +23,9 @@ public class Cart {
             input.next();
         }
         int userIdex = input.nextInt();
-        if (checkIndex(userIdex, OperationInWarehouse.getWarehouse())) {
-            userCart.add(OperationInWarehouse.getWarehouse().get(userIdex));
-            OperationInWarehouse.getWarehouse().remove(userIdex);
+        if (checkIndex(userIdex, Warehouse.getWarehouse())) {
+            userCart.add(Warehouse.getWarehouse().get(userIdex));
+            Warehouse.getWarehouse().remove(userIdex);
             System.out.println("Added " + userIdex);
         } else {
             System.out.println("\n Incorect index");
@@ -49,7 +51,7 @@ public class Cart {
         }
         int userIdex = input.nextInt();
         if (checkIndex(userIdex, userCart)) {
-            OperationInWarehouse.getWarehouse().add(userCart.get(userIdex));
+            Warehouse.getWarehouse().add(userCart.get(userIdex));
             userCart.remove(userIdex);
         } else {
             System.out.println("Incorrect Index");
@@ -67,14 +69,14 @@ public class Cart {
     public void addToCartById() {
         Article toAdd = null;
         String userId = input.next();
-        for (Article a : OperationInWarehouse.getWarehouse()) {
+        for (Article a : Warehouse.getWarehouse()) {
             if (a.getId().equals(userId)) {
                 toAdd = a;
             }
         }
         if (toAdd != null) {
             userCart.add(toAdd);
-            OperationInWarehouse.getWarehouse().remove(toAdd);
+            Warehouse.getWarehouse().remove(toAdd);
         } else {
             System.out.println("Incorrect id");
         }
@@ -90,7 +92,7 @@ public class Cart {
         }
         if (toRemove != null) {
             userCart.remove(toRemove);
-            OperationInWarehouse.getWarehouse().add(toRemove);
+            Warehouse.getWarehouse().add(toRemove);
         } else {
             System.out.println("Incorrect id");
         }
@@ -103,7 +105,7 @@ public class Cart {
                 System.out.println("\n Thanks for the purchase returning to main menu  \n");
                 break;
             case "NO":
-                OperationInWarehouse.getWarehouse().addAll(userCart);
+                Warehouse.getWarehouse().addAll(userCart);
                 userCart.clear();
                 System.out.println("\n I hope you'll spend some money next time \n");
                 break;
