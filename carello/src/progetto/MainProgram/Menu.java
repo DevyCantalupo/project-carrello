@@ -5,6 +5,9 @@ import java.util.List;
 import java.util.Scanner;
 
 import progetto.Items.Article;
+import progetto.Items.Notebook;
+import progetto.Items.Smartphone;
+import progetto.Items.Tablet;
 import progetto.Utility.Utility;
 
 public class Menu {
@@ -38,8 +41,57 @@ public class Menu {
                     continueMenu = false;
                     break;
                 case "1":
-                    System.out.println("\n Enter the TYPE of the product you want to add \n");
-                    operation.addToWarehouse();
+
+                    OperationInWarehouse warehouse = new OperationInWarehouse();
+
+                    Article.TypeOfArticle typeProd = Utility.validateTypeInput();
+
+                    System.out.println("Enter the MANUFACTURER of the product");
+                    menuScan.nextLine();
+                    String manufacturer = menuScan.nextLine();
+
+                    System.out.println("Enter the MODEL NAME of the product");
+                    String modelName = menuScan.nextLine();
+
+                    String briefDescription = Utility.descriptionInput();
+
+                    System.out.println("Enter the SCREEN SIZE of the product");
+                    double screenSizeInInches = menuScan.nextDouble();
+
+                    System.out.println("Enter the INTERNAL MEMORY SIZE of the product");
+                    int internalMemorySize = menuScan.nextInt();
+
+                    System.out.println("Enter the PURCHASE PRICE of the product");
+                    double purchasePrice = menuScan.nextDouble();
+
+                    System.out.println("Enter the SELL PRICE of the product");
+                    double sellPrice = menuScan.nextDouble();
+
+                    String id = Utility.generateUniqueID();
+                    System.out.println("Assigned unique ID for the product is: " + id);
+
+                    boolean productAdded = false;
+
+                    if (typeProd == Article.TypeOfArticle.TABLET) {
+                        Tablet tempProduct = new Tablet(manufacturer, modelName, briefDescription, screenSizeInInches,
+                                internalMemorySize, purchasePrice, sellPrice, id);
+                        productAdded = warehouse.addToWarehouse(tempProduct);
+                    } else if (typeProd == Article.TypeOfArticle.SMARTPHONE) {
+                        Smartphone tempProduct = new Smartphone(manufacturer, modelName, briefDescription, screenSizeInInches,
+                                internalMemorySize, purchasePrice, sellPrice, id);
+                        productAdded = warehouse.addToWarehouse(tempProduct);
+                    } else if (typeProd == Article.TypeOfArticle.NOTEBOOK) {
+                        Notebook tempProduct = new Notebook(manufacturer, modelName, briefDescription, screenSizeInInches,
+                                internalMemorySize, purchasePrice, sellPrice, id);
+                        productAdded = warehouse.addToWarehouse(tempProduct);
+                    }
+
+                    if (productAdded) {
+                        System.out.println("Product added successfully");
+                    } else{
+                        System.out.println("Error, couldn't add the product to the warehouse");
+                    }
+
                     break;
                 case "2":
                     operation.printWarehouseContents();
