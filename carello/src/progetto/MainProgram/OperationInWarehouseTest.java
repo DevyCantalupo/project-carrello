@@ -4,10 +4,13 @@ import org.junit.Test;
 
 import progetto.FakeDatabase.Warehouse;
 import progetto.Items.Article;
+import progetto.Items.Tablet;
+import progetto.Utility.Utility;
 
-import static org.junit.Assert.assertEquals;
-
+import java.util.ArrayList;
 import java.util.List;
+
+import static org.junit.Assert.*;
 
 public class OperationInWarehouseTest {
   @Test
@@ -47,6 +50,22 @@ public class OperationInWarehouseTest {
     String type = "TABLET";
     Double result = warehouse.findAvgPrice(type);
     assertEquals(expectedResult, result);
+  }
+
+  @Test
+  public void check_If_addToWarehouse_adds_a_product() {
+    OperationInWarehouse warehouse = new OperationInWarehouse();
+    Article tablet = new Tablet("Hp", "9000X", "A description", 9, 128, 200, 300, Utility.generateUniqueID());
+    Boolean validate = warehouse.addToWarehouse(tablet);
+    assertTrue(validate);
+  }
+
+  @Test
+  public void check_If_addToWarehouse_adds_a_null_product() {
+    OperationInWarehouse warehouse = new OperationInWarehouse();
+    Article tablet = null;
+    Boolean validate = warehouse.addToWarehouse(tablet);
+    assertFalse(validate);
   }
 
 }
