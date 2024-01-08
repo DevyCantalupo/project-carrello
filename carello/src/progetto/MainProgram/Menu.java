@@ -142,10 +142,11 @@ public class Menu {
                     break;
                 case "10":
                     System.out.println("Insert type of Article");
-                    String type = menuScan.next().toUpperCase();
-                    if (Utility.isEnum(type)) {
-                        Double result = OperationInWarehouse.findAvgPrice(type);
-                        System.out.println("Avg Price of " + type + ": " + result);
+                    String input = menuScan.next().toUpperCase();
+                    Article.TypeOfArticle type = utility.inputToTypeOfArticle(input);
+                    Double result = operation.findAvgPrice(type);
+                    if (result != null) {
+                        System.out.println("Avg Price of " + input + ": " + result);
                     } else {
                         System.out.println("We don't sell this type of article");
                     }
