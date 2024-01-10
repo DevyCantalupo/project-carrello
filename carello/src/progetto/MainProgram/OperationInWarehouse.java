@@ -65,6 +65,8 @@ public class OperationInWarehouse {
         return listPrice;
     }
 
+
+
     public static List<Article> findRangePrice(int priceMin, int priceMax) {
         List<Article> listRange = new ArrayList<>();
         for (Article a : warehouseList) {
@@ -75,6 +77,7 @@ public class OperationInWarehouse {
         return listRange;
     }
 
+    @Deprecated
     public static Double findAvgPrice(String type) {
         Double totPrice = 0.0;
         Integer numArt = 0;
@@ -86,6 +89,22 @@ public class OperationInWarehouse {
         }
         Double avg = totPrice / numArt;
         return avg;
+    }
+
+    public Double findAvgPrice(Article.TypeOfArticle type) {
+        List<Article> listAvg = warehouseList
+                .stream()
+                .filter(c -> c.getType() == type)
+                .toList();
+        if (!listAvg.isEmpty()) {
+            Double sum = 0.0;
+            for (Article a : listAvg) {
+                sum += a.getPriceOfBuying();
+            }
+            return sum / listAvg.size();
+        } else {
+            return null;
+        }
     }
 
     public static List<Article> findByManifacturer(String manufacturerToSearch) {

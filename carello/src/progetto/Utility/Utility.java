@@ -41,7 +41,7 @@ public class Utility {
 
     static Scanner scan = new Scanner(System.in);
 
-    public static Article.TypeOfArticle validateTypeInput(){
+    public static Article.TypeOfArticle validateTypeInput() {
         Article.TypeOfArticle type = null;
         boolean validType = false;
         do {
@@ -66,7 +66,7 @@ public class Utility {
         return type;
     }
 
-    public static String descriptionInput(){
+    public static String descriptionInput() {
         System.out.println("Do you wish to add a brief description to this product? y/n");
         char choice = scan.next().toUpperCase().charAt(0);
         String description = null;
@@ -77,4 +77,14 @@ public class Utility {
         }
         return description;
     }
+
+    public Article.TypeOfArticle inputToTypeOfArticle(String input) {
+        return switch (input) {
+            case "NOTEBOOK" -> Article.TypeOfArticle.NOTEBOOK;
+            case "TABLET" -> Article.TypeOfArticle.TABLET;
+            case "SMARTPHONE" -> Article.TypeOfArticle.SMARTPHONE;
+            default -> null;
+        };
+    }
 }
+
