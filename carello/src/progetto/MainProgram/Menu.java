@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import jdk.jshell.execution.Util;
 import progetto.Items.Article;
 import progetto.Items.Notebook;
 import progetto.Items.Smartphone;
@@ -12,7 +13,7 @@ import progetto.Utility.Utility;
 
 public class Menu {
     static Scanner menuScan = new Scanner(System.in);
-    Cart cart = new Cart(new ArrayList<>());
+    Cart cart = new Cart();
     OperationInWarehouse operation = new OperationInWarehouse();
     Utility utility = new Utility();
 
@@ -88,7 +89,7 @@ public class Menu {
 
                     if (productAdded) {
                         System.out.println("Product added successfully");
-                    } else{
+                    } else {
                         System.out.println("Error, couldn't add the product to the warehouse");
                     }
 
@@ -101,32 +102,32 @@ public class Menu {
                     break;
                 case "4":
                     System.out.print("\n Please enter the TYPE of the product you wish to search for: \n");
-                    OperationInWarehouse.searchType();
+                    operation.searchType();
                     break;
                 case "5":
                     System.out.println("\n Insert the manufacturer of the product \n");
                     String manufacturerToSearch = menuScan.next();
-                    List<Article> listManifacturer = OperationInWarehouse.findByManifacturer(manufacturerToSearch);
-                    utility.checkIfEmpty(listManifacturer);
+                    List<Article> listManufacturer = operation.findByManifacturer(manufacturerToSearch);
+                    utility.checkIfEmpty(listManufacturer);
                     break;
                 case "6":
                     System.out.println("\n Insert the model of the product \n");
                     String modelToSearch = menuScan.next();
-                    List<Article> listModel = OperationInWarehouse.findByModel(modelToSearch);
+                    List<Article> listModel = operation.findByModel(modelToSearch);
                     utility.checkIfEmpty(listModel);
                     break;
                 case "7":
                     System.out.println("\n Insert the selling price to search \n");
                     Utility.checkInput(menuScan);
                     int getPriceOfSellingToSearch = menuScan.nextInt();
-                    List<Article> listSelling = OperationInWarehouse.findSellingPrice(getPriceOfSellingToSearch);
+                    List<Article> listSelling = operation.findSellingPrice(getPriceOfSellingToSearch);
                     utility.checkIfEmpty(listSelling);
                     break;
                 case "8":
                     System.out.println("\n Insert purchase price to find \n");
                     Utility.checkInput(menuScan);
                     int price = menuScan.nextInt();
-                    List<Article> listPrice = OperationInWarehouse.findBuyingPrice(price);
+                    List<Article> listPrice = operation.findBuyingPrice(price);
                     utility.checkIfEmpty(listPrice);
                     break;
                 case "9":
@@ -137,8 +138,12 @@ public class Menu {
                     System.out.println("\n Insert maximum price \n");
                     Utility.checkInput(menuScan);
                     int priceMax = menuScan.nextInt();
-                    List<Article> listRange = OperationInWarehouse.findRangePrice(priceMin, priceMax);
-                    utility.checkIfEmpty(listRange);
+                    if (utility.checkMinMax(priceMin, priceMax)) {
+                        List<Article> listRange = operation.findRangePrice(priceMin, priceMax);
+                        utility.checkIfEmpty(listRange);
+                    } else {
+                        System.out.println("\n Error: Maximum price is lower the minimum price \n");
+                    }
                     break;
                 case "10":
                     System.out.println("Insert type of Article");
@@ -152,16 +157,16 @@ public class Menu {
                     }
                     break;
                 case "11":
-                    if (Cart.getUserCart().isEmpty()) {
+                    if (cart.getUserCart().isEmpty()) {
                         System.out.println("\n user cart is empty \n");
                     } else {
                         cart.printCart();
                         System.out.println("your actual price is : " + cart.calculateTotalCart());
                         System.out.println("\n Would you like to complete your purchase?");
                         System.out.println(
-                                "Digit 'YES' if you want to puchase the articles, 'NO' if you don't want to buy the articles anymore, digit a random char to go back to the menu");
+                                "Digit 'YES' if you want to purchase the articles, 'NO' if you don't want to buy the articles anymore, digit a random char to go back to the menu");
                         String choice = menuScan.next();
-                        Cart.finalizePurchase(choice);
+                        cart.finalizePurchase(choice);
                     }
                     break;
                 default:

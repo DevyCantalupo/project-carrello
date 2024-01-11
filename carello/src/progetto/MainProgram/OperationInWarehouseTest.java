@@ -15,22 +15,24 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 public class OperationInWarehouseTest {
+
+    OperationInWarehouse operation = new OperationInWarehouse();
     @Test
     public void testFindByManifacturerIfNull() {
-        List<Article> testManufacturer = OperationInWarehouse.findByManifacturer(null);
+        List<Article> testManufacturer = operation.findByManifacturer(null);
         assertEquals(0, testManufacturer.size());
     }
 
     @Test
     public void testManufacturerNotFind() {
-        List<Article> testManufacturer = OperationInWarehouse.findByManifacturer("adfadf");
+        List<Article> testManufacturer = operation.findByManifacturer("adfadf");
         assertEquals(0, testManufacturer.size());
     }
 
     @Test
     public void testFindByManufacturerWithEmptyWarehouse() {
         Warehouse.getWarehouse().clear();
-        List<Article> testManufacturer = OperationInWarehouse.findByManifacturer("Hp");
+        List<Article> testManufacturer = operation.findByManifacturer("Hp");
         assertEquals(0, testManufacturer.size());
     }
 
@@ -56,17 +58,15 @@ public class OperationInWarehouseTest {
 
     @Test
     public void check_If_addToWarehouse_adds_a_product() {
-        OperationInWarehouse warehouse = new OperationInWarehouse();
         Article tablet = new Tablet("Hp", "9000X", "A description", 9, 128, 200, 300, Utility.generateUniqueID());
-        Boolean validate = warehouse.addToWarehouse(tablet);
+        Boolean validate = operation.addToWarehouse(tablet);
         assertTrue(validate);
     }
 
     @Test
     public void check_If_addToWarehouse_adds_a_null_product() {
-        OperationInWarehouse warehouse = new OperationInWarehouse();
         Article tablet = null;
-        Boolean validate = warehouse.addToWarehouse(tablet);
+        Boolean validate = operation.addToWarehouse(tablet);
         assertFalse(validate);
     }
 
@@ -74,15 +74,13 @@ public class OperationInWarehouseTest {
     public void check_if_findAvgPrice_return_value_with_correct_input() {
         Warehouse database = new Warehouse();
         database.productsAlreadyInWarehouse();
-        OperationInWarehouse warehouse = new OperationInWarehouse();
-        Double expectedResult = warehouse.findAvgPrice(Article.TypeOfArticle.TABLET);
+        Double expectedResult = operation.findAvgPrice(Article.TypeOfArticle.TABLET);
         assertNotNull(expectedResult);
     }
 
     @Test
     public void check_if_findAvgPrice_return_null_if_there_are_not_Articles_in_the_Database() {
-        OperationInWarehouse warehouse = new OperationInWarehouse();
-        assertNull(warehouse.findAvgPrice(Article.TypeOfArticle.TABLET));
+        assertNull(operation.findAvgPrice(Article.TypeOfArticle.TABLET));
     }
 
     @Test
@@ -90,12 +88,36 @@ public class OperationInWarehouseTest {
         Notebook t1 = new Notebook("Hp","X100", "blablabla",300, 500, 0, 0,"xx" );
         Notebook t2 = new Notebook("Hp","X200", "blablabla",300, 500, 0, 0,"xxx" );
         Notebook t3 = new Notebook("Hp","X300", "blablabla",300, 500, 0, 0,"xxxx" );
-        OperationInWarehouse warehouse = new OperationInWarehouse();
-        warehouse.addToWarehouse(t1);
-        warehouse.addToWarehouse(t2);
-        warehouse.addToWarehouse(t3);
+        operation.addToWarehouse(t1);
+        operation.addToWarehouse(t2);
+        operation.addToWarehouse(t3);
         Double resultExpected = 0.0;
-        assertEquals(resultExpected, warehouse.findAvgPrice(Article.TypeOfArticle.NOTEBOOK));
+        assertEquals(resultExpected, operation.findAvgPrice(Article.TypeOfArticle.NOTEBOOK));
+    }
+
+    @Test
+    public void check_if_findRangePrice_return_empty_list_if_there_are_not_Articles_in_the_range(){
+        Notebook t1 = new Notebook("Hp","X100", "blablabla",300, 500, 10, 100,"xx" );
+        Notebook t2 = new Notebook("Hp","X200", "blablabla",300, 500, 50, 200,"xxx" );
+        Notebook t3 = new Notebook("Hp","X300", "blablabla",300, 500, 50, 300,"xxxx" );
+        operation.addToWarehouse(t1);
+        operation.addToWarehouse(t2);
+        operation.addToWarehouse(t3);
+        List<Article> resultExpected = operation.findRangePrice(1000, 1100);
+        assertTrue(resultExpected.isEmpty());
+    }
+
+
+    @Test
+    public void check_if_findRangePrice_return_Not_empty_list_if_there_Articles_in_the_range(){
+        Notebook t1 = new Notebook("Hp","X100", "blablabla",300, 500, 10, 100,"xx" );
+        Notebook t2 = new Notebook("Hp","X200", "blablabla",300, 500, 50, 200,"xxx" );
+        Notebook t3 = new Notebook("Hp","X300", "blablabla",300, 500, 50, 300,"xxxx" );
+        operation.addToWarehouse(t1);
+        operation.addToWarehouse(t2);
+        operation.addToWarehouse(t3);
+        List<Article> resultExpected = operation.findRangePrice(100, 200);
+        assertFalse(resultExpected.isEmpty());
     }
 }
 
