@@ -19,8 +19,12 @@ public class Utility {
                 || Objects.equals(type, String.valueOf(Article.TypeOfArticle.NOTEBOOK)));
     }
 
-    public static boolean checkIndex(int a, List<Article> list) {
+    public boolean checkIndex(int a, List<Article> list) {
         return a >= 0 && a < list.size();
+    }
+
+    public boolean checkMinMax(int priceMin, int priceMax) {
+        return priceMin <= priceMax;
     }
 
     public void checkIfEmpty(List<Article> list) {

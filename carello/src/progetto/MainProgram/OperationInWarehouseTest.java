@@ -94,5 +94,30 @@ public class OperationInWarehouseTest {
         Double resultExpected = 0.0;
         assertEquals(resultExpected, operation.findAvgPrice(Article.TypeOfArticle.NOTEBOOK));
     }
+
+    @Test
+    public void check_if_findRangePrice_return_empty_list_if_there_are_not_Articles_in_the_range(){
+        Notebook t1 = new Notebook("Hp","X100", "blablabla",300, 500, 10, 100,"xx" );
+        Notebook t2 = new Notebook("Hp","X200", "blablabla",300, 500, 50, 200,"xxx" );
+        Notebook t3 = new Notebook("Hp","X300", "blablabla",300, 500, 50, 300,"xxxx" );
+        operation.addToWarehouse(t1);
+        operation.addToWarehouse(t2);
+        operation.addToWarehouse(t3);
+        List<Article> resultExpected = operation.findRangePrice(1000, 1100);
+        assertTrue(resultExpected.isEmpty());
+    }
+
+
+    @Test
+    public void check_if_findRangePrice_return_Not_empty_list_if_there_Articles_in_the_range(){
+        Notebook t1 = new Notebook("Hp","X100", "blablabla",300, 500, 10, 100,"xx" );
+        Notebook t2 = new Notebook("Hp","X200", "blablabla",300, 500, 50, 200,"xxx" );
+        Notebook t3 = new Notebook("Hp","X300", "blablabla",300, 500, 50, 300,"xxxx" );
+        operation.addToWarehouse(t1);
+        operation.addToWarehouse(t2);
+        operation.addToWarehouse(t3);
+        List<Article> resultExpected = operation.findRangePrice(100, 200);
+        assertFalse(resultExpected.isEmpty());
+    }
 }
 

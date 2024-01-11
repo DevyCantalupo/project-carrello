@@ -3,18 +3,21 @@ package progetto.MainProgram;
 import progetto.Items.Article;
 import progetto.FakeDatabase.Warehouse;
 import progetto.Utility.Utility;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class Cart {
     static Scanner input = new Scanner(System.in);
-    private static List<Article> userCart;
+    private List<Article> userCart;
+    Utility utility= new Utility();
 
-    public Cart(List<Article> userCart) {
-        Cart.userCart = userCart;
+    public Cart() {
+        this.userCart = new ArrayList<>();
     }
 
-    public static List<Article> getUserCart() {
+    public List<Article> getUserCart() {
         return userCart;
     }
 
@@ -24,7 +27,7 @@ public class Cart {
             input.next();
         }
         int userIdex = input.nextInt();
-        if (Utility.checkIndex(userIdex, Warehouse.getWarehouse())) {
+        if (utility.checkIndex(userIdex, Warehouse.getWarehouse())) {
             userCart.add(Warehouse.getWarehouse().get(userIdex));
             Warehouse.getWarehouse().remove(userIdex);
             System.out.println("Added " + userIdex);
@@ -51,7 +54,7 @@ public class Cart {
             input.next();
         }
         int userIdex = input.nextInt();
-        if (Utility.checkIndex(userIdex, userCart)) {
+        if (utility.checkIndex(userIdex, userCart)) {
             Warehouse.getWarehouse().add(userCart.get(userIdex));
             userCart.remove(userIdex);
         } else {
