@@ -101,32 +101,32 @@ public class Menu {
                     break;
                 case "4":
                     System.out.print("\n Please enter the TYPE of the product you wish to search for: \n");
-                    OperationInWarehouse.searchType();
+                    operation.searchType();
                     break;
                 case "5":
                     System.out.println("\n Insert the manufacturer of the product \n");
                     String manufacturerToSearch = menuScan.next();
-                    List<Article> listManifacturer = OperationInWarehouse.findByManifacturer(manufacturerToSearch);
+                    List<Article> listManifacturer = operation.findByManifacturer(manufacturerToSearch);
                     utility.checkIfEmpty(listManifacturer);
                     break;
                 case "6":
                     System.out.println("\n Insert the model of the product \n");
                     String modelToSearch = menuScan.next();
-                    List<Article> listModel = OperationInWarehouse.findByModel(modelToSearch);
+                    List<Article> listModel = operation.findByModel(modelToSearch);
                     utility.checkIfEmpty(listModel);
                     break;
                 case "7":
                     System.out.println("\n Insert the selling price to search \n");
                     Utility.checkInput(menuScan);
                     int getPriceOfSellingToSearch = menuScan.nextInt();
-                    List<Article> listSelling = OperationInWarehouse.findSellingPrice(getPriceOfSellingToSearch);
+                    List<Article> listSelling = operation.findSellingPrice(getPriceOfSellingToSearch);
                     utility.checkIfEmpty(listSelling);
                     break;
                 case "8":
                     System.out.println("\n Insert purchase price to find \n");
                     Utility.checkInput(menuScan);
                     int price = menuScan.nextInt();
-                    List<Article> listPrice = OperationInWarehouse.findBuyingPrice(price);
+                    List<Article> listPrice = operation.findBuyingPrice(price);
                     utility.checkIfEmpty(listPrice);
                     break;
                 case "9":
@@ -137,7 +137,7 @@ public class Menu {
                     System.out.println("\n Insert maximum price \n");
                     Utility.checkInput(menuScan);
                     int priceMax = menuScan.nextInt();
-                    List<Article> listRange = OperationInWarehouse.findRangePrice(priceMin, priceMax);
+                    List<Article> listRange = operation.findRangePrice(priceMin, priceMax);
                     utility.checkIfEmpty(listRange);
                     break;
                 case "10":
@@ -161,7 +161,7 @@ public class Menu {
                         System.out.println(
                                 "Digit 'YES' if you want to puchase the articles, 'NO' if you don't want to buy the articles anymore, digit a random char to go back to the menu");
                         String choice = menuScan.next();
-                        Cart.finalizePurchase(choice);
+                        cart.finalizePurchase(choice);
                     }
                     break;
                 default:

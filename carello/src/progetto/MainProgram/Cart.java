@@ -99,7 +99,7 @@ public class Cart {
         }
     }
 
-    public static void finalizePurchase(String choice) {
+    public  void finalizePurchase(String choice) {
         switch (choice.toUpperCase()) {
             case "YES":
                 userCart.clear();

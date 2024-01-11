@@ -10,9 +10,9 @@ import progetto.Items.Tablet;
 import progetto.Utility.Utility;
 
 public class OperationInWarehouse {
-    static Scanner input = new Scanner(System.in);
-    
-    private static List<Article> warehouseList = Warehouse.getWarehouse();
+    Scanner input = new Scanner(System.in);
+
+    private final List<Article> warehouseList = Warehouse.getWarehouse();
 
     public OperationInWarehouse() {
     }
@@ -27,16 +27,16 @@ public class OperationInWarehouse {
         }
     }
 
-    public Boolean addToWarehouse(Article article){
-        if(article != null){
+    public Boolean addToWarehouse(Article article) {
+        if (article != null) {
             return warehouseList.add(article);
-        }else{
+        } else {
             return false;
         }
 
     }
 
-    public static void searchType() {
+    public void searchType() {
         boolean found = false;
         do {
             String userType = input.nextLine().toUpperCase();
@@ -55,7 +55,7 @@ public class OperationInWarehouse {
         } while (found == false);
     }
 
-    public static List<Article> findBuyingPrice(int price) {
+    public List<Article> findBuyingPrice(int price) {
         List<Article> listPrice = new ArrayList<>();
         for (Article a : warehouseList) {
             if (a.getPriceOfBuying() == price) {
@@ -66,8 +66,7 @@ public class OperationInWarehouse {
     }
 
 
-
-    public static List<Article> findRangePrice(int priceMin, int priceMax) {
+    public List<Article> findRangePrice(int priceMin, int priceMax) {
         List<Article> listRange = new ArrayList<>();
         for (Article a : warehouseList) {
             if (a.getPriceOfSelling() >= priceMin && a.getPriceOfSelling() <= priceMax) {
@@ -78,7 +77,7 @@ public class OperationInWarehouse {
     }
 
     @Deprecated
-    public static Double findAvgPrice(String type) {
+    public Double findAvgPrice(String type) {
         Double totPrice = 0.0;
         Integer numArt = 0;
         for (Article art : warehouseList) {
@@ -107,7 +106,7 @@ public class OperationInWarehouse {
         }
     }
 
-    public static List<Article> findByManifacturer(String manufacturerToSearch) {
+    public List<Article> findByManifacturer(String manufacturerToSearch) {
         List<Article> listManufacturer = new ArrayList<>();
         for (Article a : warehouseList) {
             if (a.getManufacturer().equals(manufacturerToSearch)) {
@@ -117,7 +116,7 @@ public class OperationInWarehouse {
         return listManufacturer;
     }
 
-    public static List<Article> findByModel(String modelToSearch) {
+    public List<Article> findByModel(String modelToSearch) {
         List<Article> listModel = new ArrayList<>();
         for (Article a : warehouseList) {
             if (a.getModel().equals(modelToSearch)) {
@@ -127,7 +126,7 @@ public class OperationInWarehouse {
         return listModel;
     }
 
-    public static List<Article> findSellingPrice(int getPriceOfSellingToSearch) {
+    public List<Article> findSellingPrice(int getPriceOfSellingToSearch) {
         List<Article> listPriceOfSelling = new ArrayList<>();
         for (Article a : warehouseList) {
             if (a.getPriceOfSelling() == getPriceOfSellingToSearch) {
