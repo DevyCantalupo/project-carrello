@@ -9,7 +9,7 @@ import progetto.Items.Article;
 
 public class Utility {
 
-    public static String generateUniqueID() {
+    public  String generateUniqueID() {
         return UUID.randomUUID().toString();
     }
 

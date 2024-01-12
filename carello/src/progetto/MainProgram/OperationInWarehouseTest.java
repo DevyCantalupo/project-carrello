@@ -17,6 +17,7 @@ import static org.junit.Assert.*;
 public class OperationInWarehouseTest {
 
     OperationInWarehouse operation = new OperationInWarehouse();
+    Utility utility = new Utility();
     @Test
     public void testFindByManifacturerIfNull() {
         List<Article> testManufacturer = operation.findByManifacturer(null);
@@ -58,7 +59,7 @@ public class OperationInWarehouseTest {
 
     @Test
     public void check_If_addToWarehouse_adds_a_product() {
-        Article tablet = new Tablet("Hp", "9000X", "A description", 9, 128, 200, 300, Utility.generateUniqueID());
+        Article tablet = new Tablet("Hp", "9000X", "A description", 9, 128, 200, 300, utility.generateUniqueID());
         Boolean validate = operation.addToWarehouse(tablet);
         assertTrue(validate);
     }
@@ -80,11 +81,13 @@ public class OperationInWarehouseTest {
 
     @Test
     public void check_if_findAvgPrice_return_null_if_there_are_not_Articles_in_the_Database() {
+        Warehouse.getWarehouse().clear();
         assertNull(operation.findAvgPrice(Article.TypeOfArticle.TABLET));
     }
 
     @Test
     public void check_if_findAvgPrice_return_zero_if_priceOfBuying_of_the_articles_are_zero() {
+        Warehouse.getWarehouse().clear();
         Notebook t1 = new Notebook("Hp","X100", "blablabla",300, 500, 0, 0,"xx" );
         Notebook t2 = new Notebook("Hp","X200", "blablabla",300, 500, 0, 0,"xxx" );
         Notebook t3 = new Notebook("Hp","X300", "blablabla",300, 500, 0, 0,"xxxx" );
@@ -119,5 +122,13 @@ public class OperationInWarehouseTest {
         List<Article> resultExpected = operation.findRangePrice(100, 200);
         assertFalse(resultExpected.isEmpty());
     }
+
+    @Test
+    public void check_if_findRangePrice_return_null_if_PriceMin_is_higher_then_priceMax(){
+        List<Article> result = operation.findRangePrice(100, 50);
+        assertNull(result);
+    }
+
+
 }
 
