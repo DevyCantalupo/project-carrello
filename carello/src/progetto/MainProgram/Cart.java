@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Cart {
-    static Scanner input = new Scanner(System.in);
+    Scanner input = new Scanner(System.in);
     private List<Article> userCart;
     Utility utility= new Utility();
 

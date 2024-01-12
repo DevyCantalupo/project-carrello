@@ -67,13 +67,17 @@ public class OperationInWarehouse {
 
 
     public List<Article> findRangePrice(double priceMin, double priceMax) {
-        List<Article> listRange = new ArrayList<>();
+        if (priceMin > priceMax){
+            return null;
+        } else {
+            List<Article> listRange = new ArrayList<>();
             for (Article a : warehouseList) {
                 if (a.getPriceOfSelling() >= priceMin && a.getPriceOfSelling() <= priceMax) {
                     listRange.add(a);
                 }
             }
         return listRange;
+        }
     }
 
     @Deprecated

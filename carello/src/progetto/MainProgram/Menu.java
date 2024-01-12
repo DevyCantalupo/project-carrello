@@ -68,7 +68,7 @@ public class Menu {
                     System.out.println("Enter the SELL PRICE of the product");
                     double sellPrice = menuScan.nextDouble();
 
-                    String id = Utility.generateUniqueID();
+                    String id = utility.generateUniqueID();
                     System.out.println("Assigned unique ID for the product is: " + id);
 
                     boolean productAdded = false;
@@ -138,8 +138,9 @@ public class Menu {
                     System.out.println("\n Insert maximum price \n");
                     Utility.checkInput(menuScan);
                     int priceMax = menuScan.nextInt();
-                    if (utility.checkMinMax(priceMin, priceMax)) {
-                        List<Article> listRange = operation.findRangePrice(priceMin, priceMax);
+
+                    List<Article> listRange = operation.findRangePrice(priceMin, priceMax);
+                    if (listRange != null) {
                         utility.checkIfEmpty(listRange);
                     } else {
                         System.out.println("\n Error: Maximum price is lower the minimum price \n");
